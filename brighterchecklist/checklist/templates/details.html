@@ -6,9 +6,11 @@
 </head>
 <body>
 
-<form action="/checklist/details/{{ details.id }}" method="post">
+<h1>{{ details.source }}</h1>
+<form action="/checklist/details/{% if details.id %}{{ details.id }}{% else %}0{% endif %}" method="post">
     {% csrf_token %}
-    {{ form }}
+     {{ form }}
+
     <input type="submit" value="Submit">
 </form>
 

@@ -6,6 +6,7 @@
 </head>
 <body>
 
+<a href="/checklist/details/0">Add</a>
 <table border="1">
     <tr>
         <th></th>
@@ -27,7 +28,7 @@
             {% else %}
                 Not Complete
             {% endif %}</td>
-        <td><a href="/checklist/details/{{ item.id }}">Add</a></td> <!-- One way to do this -->
+        <td><a href="/checklist/details/{{ item.id }}">Edit</a></td> <!-- One way to do this -->
         <td><a href="{% url 'complete' id=item.id %}">Complete</a></td> <!-- Another way to do this -->
     </tr>
     {% endfor %}
