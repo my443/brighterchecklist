@@ -21,9 +21,14 @@
         <td>{{ item.id }}</td>
         <td>{{ item.source }}</td>
         <td>{{ item.startdate|date:'Y-m-d H:i' }}</td>
-        <td>{{ item.iscomplete }}</td>
+        <td>
+            {% if item.iscomplete %}
+                Completed
+            {% else %}
+                Not Complete
+            {% endif %}</td>
         <td><a href="/checklist/details/{{ item.id }}">Add</a></td> <!-- One way to do this -->
-        <td><a href="{% url 'details' id=item.id %}">Delete</a></td> <!-- Another way to do this -->
+        <td><a href="{% url 'complete' id=item.id %}">Complete</a></td> <!-- Another way to do this -->
     </tr>
     {% endfor %}
 </table>

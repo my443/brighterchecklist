@@ -46,3 +46,23 @@ def details(request, id):
         'form': form
     }
     return HttpResponse(template.render(context, request))
+
+def complete_item(request, id):
+    checklist_item = Checklist.objects.get(id=id)
+
+    if checklist_item.iscomplete:
+        checklist_item.iscomplete = False
+    else:
+        checklist_item.iscomplete = True
+
+    checklist_item.save()
+
+    checklist_items = Checklist.objects.all()
+
+    template = loader.get_template('checklist.html')
+
+    context = {
+        'checklist_items': checklist_items
+    }
+
+    return HttpResponse(template.render(context, request))
