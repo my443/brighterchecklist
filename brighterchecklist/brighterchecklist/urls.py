@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('checklist.urls')),
+    path('', include('checklist_manager.urls')),
     path('admin/', admin.site.urls),
 ]
