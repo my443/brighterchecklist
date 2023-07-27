@@ -4,17 +4,15 @@
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager"><i class="fa fa-list fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;List of Checklists</a>
 </div>
-{{ form }}
+
 <div class="row">
-    <div class="col text-center">
+    <div class="col">
 
-        <form action="/manager/" method="post">
-        {% csrf_token %}
-            <div class="input-group"><span class="input-group-text" width="30%">Checklist Name</span>{{ form.checklist_name }}</div>
-
-        <div class="input-group"><span class="input-group-text">Checklist Detais</span>{{ form.checklist_details }}</div>
-        <button class="btn btn-primary text-center" type="submit">Add Checklist</button>
-            </form>
+        <form action="/manager/save/{% if checklist_data.id %}{{ checklist_data.id }}{% else %}0{% endif %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary text-center" type="submit">{% if checklist_data.id %}Save{% else %}Add{% endif %} Checklist</button>
+        </form>
     </div>
 </div>
 {% endblock %}

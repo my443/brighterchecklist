@@ -47,22 +47,31 @@ def delete(request, id):
 
 def edit(request, id):
     checklist_data = SourceChecklist.objects.get(id=id)
-    form = ChecklistTemplateForm()
     template = loader.get_template('checklist_manager_entry.html')
 
     ## Put the values in the form
-    form.checklist_name = checklist_data.checklist_name
-    form.checklist_details = checklist_data.checklist_details
-
     data = {
         'checklist_name':checklist_data.checklist_name,
         'checklist_details':checklist_data.checklist_details
     }
     form = ChecklistTemplateForm(data)
-    print (form)
+    # print (vars(form))
 
     context = {
         'form': form,
+        'checklist_data': checklist_data,
     }
 
     return HttpResponse(template.render(context, request))
+
+def save(request, id):
+    checklist_to_update = SourceChecklist.objects.get(id=id)
+    form = ChecklistTemplateForm(request.POST)
+
+    if form.is_valid():
+        checklist_to_update.checklist_name = request.POST['checklist_name']
+        checklist_to_update.checklist_details = form.cleaned_data['checklist_details']
+
+        checklist_to_update.save()
+
+    return redirect('/manager/')
