@@ -162,4 +162,8 @@ def save_template_item(request, item_id):
     return redirect(f'/manager/template/list/{checklist_id}')
 
 def delete_template_item(request, item_id):
-    pass
+    checklist_item_to_delete = ChecklistTemplateItems.objects.get(id=item_id)
+    checklist_id = checklist_item_to_delete.checklist_id
+    checklist_item_to_delete.delete()
+
+    return redirect(f'/manager/template/list/{checklist_id}')
