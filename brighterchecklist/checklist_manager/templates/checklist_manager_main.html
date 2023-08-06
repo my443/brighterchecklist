@@ -12,8 +12,8 @@
                     <tr>
                         <th style="width: 35%">Checklist Name</th>
                         <th class="text-center">Assigned To</th>
-                        <th class="text-center">Assign Checklist</th>
-                        <th class="text-center">Edit Checklist</th>
+                        <th class="text-center">Edit Name and Description</th>
+                        <th class="text-center">See Checklist Template</th>
                         <th class="text-center">Delete</th>
                     </tr>
                 </thead>
@@ -21,9 +21,10 @@
                 {% for row in all_checklists %}
                     <tr>
                         <td>{{ row.checklist_name }}</td>
-                        <td class="text-center"><i class="fa fa-users" data-bs-toggle="tooltip" data-bss-tooltip="" style="font-size: 17px;" title="People who this checklist is assigned to."></i></td>
+                        <!--<td class="text-center"><i class="fa fa-users" data-bs-toggle="tooltip" data-bss-tooltip="" style="font-size: 17px;" title="People who this checklist is assigned to."></i></td>-->
                         <td class="text-center"> <i class="fa fa-user-plus"></i></td>
-                        <td class="text-center"><a href="/manager/edit/{{row.id}}"><i class="fa fa-th-list"></i></a> </td>
+                        <td class="text-center"><a href="/manager/edit/{{row.id}}"><i class="fa fa-th-list"></i></td>
+                        <td class="text-center"><a href="/manager/template/list/{{row.id}}"> <i class="fa fa-list-alt"></i></a> </td>
                         <td class="text-center"><a href="/manager/delete/{{row.id}}"><i class="fa fa-trash" style="font-size: 17px;"></i></a></td>
                     </tr>
                 {% endfor %}
