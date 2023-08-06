@@ -9,5 +9,7 @@ urlpatterns = [
     path('manager/save/<int:id>', views.save, name='save'),
 
     path('manager/template/list/<int:checklist_id>', views.list_template_items, name='template'),
-    path('manager/template/edit/<int:checklist_id>', views.edit_template_item, name='edit_template_item'),
+    path('manager/template/edit/<int:item_id>', views.edit_template_item, name='edit_template_item'),
+    path('manager/template/save/<int:item_id>', views.save_template_item, name='save_template_item'),
+    path('manager/template/new/<int:checklist_id>', views.new_template_item, name='new_template_item'),
 ]

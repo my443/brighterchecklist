@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager"><i class="fa fa-list fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;List of Checklists</a>
+</div>
+
+<div class="row">
+    <div class="col">
+
+        <form action="/manager/template/save/{% if details.id %}{{ details.id }}{% else %}0{% endif %}" method="post">
+            <input name="checklist_id" value="{{ details.checklist_id }}" hidden readonly/>
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary text-center" type="submit">{% if details.id %}Save{% else %}Add{% endif %} Checklist Item</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

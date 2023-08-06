@@ -31,7 +31,7 @@ def details(request, id):
     # pprint(vars(details))
     template = loader.get_template('details.html')
 
-    print ("here", request.method)
+    # print ("here", request.method)
 
     if request.method == 'POST':
         form = ChecklistForm(request.POST)

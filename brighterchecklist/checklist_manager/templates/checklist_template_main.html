@@ -2,7 +2,7 @@
 
 {% block main_content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Template Checklist Items for: </h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/new/"><i class="fa fa-plus fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Add Checklist</a>
+    <h3 class="text-dark mb-0">Template Checklist Items for: {{ checklist_info.checklist_name }}</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/template/new/{{checklist_info.id}}"><i class="fa fa-plus fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Add A New Checklist Item</a>
 </div>
 <div class="row">
     <div class="col">
@@ -21,8 +21,8 @@
                     <tr>
                         <td>{{ row.template_item_short_text }}</td>
                         <td>{{ row.template_item_long_text }}</td>
-                        <td class="text-center"><a href="/manager/edit/{{row.id}}"><i class="fa fa-th-list"></i></a> </td>
-                        <td class="text-center"><a href="/manager/delete/{{row.id}}"><i class="fa fa-trash" style="font-size: 17px;"></i></a></td>
+                        <td class="text-center"><a href="/manager/template/edit/{{row.id}}"><i class="fa fa-th-list"></i></a> </td>
+                        <td class="text-center"><a href="/manager/template/delete/{{row.id}}"><i class="fa fa-trash" style="font-size: 17px;"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
