@@ -13,4 +13,7 @@ urlpatterns = [
     path('manager/template/save/<int:item_id>', views.save_template_item, name='save_template_item'),
     path('manager/template/new/<int:checklist_id>', views.new_template_item, name='new_template_item'),
     path('manager/template/delete/<int:item_id>', views.delete_template_item, name='delete_template_item'),
+
+    path('manager/users/<int:checklist_id>', views.all_users_for_assignment, name='all_users_assignments'),
+    path('manager/users/assign/<int:checklist_id>/<int:user_id>', views.assign_checklist_to_person, name='assign_checklist_to_person'),
 ]

@@ -1,12 +1,11 @@
-import datetime
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import SourceChecklist, ChecklistTemplateItems
 from .forms import ChecklistTemplateForm, ChecklistItemForm
 from .views_checklist_template import *
-
+from .views_assign_checklist_to_user import *
+import datetime
 
 def manager(request):
     all_checklists = SourceChecklist.objects.all()

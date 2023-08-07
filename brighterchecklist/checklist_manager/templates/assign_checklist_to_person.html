@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-dark mb-0">Assigned Checklists for: {{ checklist_info.checklist_name }}</h3>
+    <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/template/new/{{checklist_info.id}}">
+        <i class="fa fa-plus fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Add A New Checklist Item</a>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%">User's Name</th>
+                        <th class="">Username</th>
+                        <th class="text-center">Number Of Times This Checklist Has Been Assigned</th>
+                        <th class="text-center">Number Of Completed Checklist</th>
+                        <th class="text-center">Number Of Open Checklist</th>
+                        <th class="text-center">Assign checklist to this person</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for row in all_users %}
+                    <tr>
+                        <td>{{ row.first_name }} {{ row.last_name }}</td>
+                        <td>{{ row.username }}</td>
+                        <td class="text-center"> - </td>
+                        <td class="text-center"> - </td>
+                        <td class="text-center"> - </td>
+                        <td class="text-center"><a href="/manager/users/assign/{{checklist_info.id}}/{{row.id}}"><i class="fa fa-plus-circle" style="font-size: 17px;"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
