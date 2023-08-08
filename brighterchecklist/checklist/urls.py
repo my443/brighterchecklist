@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('checklist/', views.checklist, name='checklist'),
+    path('checklist/<int:id>', views.checklist, name='checklist'),
     path('checklist/complete/<int:id>', views.complete_item, name='complete'),
     # path('checklist/details/', views.details, name='add'),
     path('checklist/details/<int:id>', views.edit_notes, name='details'),

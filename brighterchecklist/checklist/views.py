@@ -7,8 +7,8 @@ from pprint import pprint
 
 
 # Create your views here.
-def checklist(request):
-    checklist_items = Checklist.objects.all()
+def checklist(request,id):
+    checklist_items = Checklist.objects.all().filter(checklist_header_id=id)
 
     template = loader.get_template('checklist/checklist_items_list.html')
 
@@ -61,7 +61,7 @@ def complete_item(request, id):
 
     checklist_item.save()
 
-    checklist_items = Checklist.objects.all()
+    checklist_items = Checklist.objects.all().filter(checklist_header_id=checklist_item.checklist_header_id)
 
     template = loader.get_template('checklist/checklist_items_list.html')
 

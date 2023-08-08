@@ -13,7 +13,7 @@
                         <th style="width: 35%">Details</th>
                         <th class="text-center">Start Date</th>
                         <th class="text-center">Status</th>
-                        <th class="text-center">Edit</th>
+                        <th class="text-center">Notes</th>
                         <th class="text-center">Mark Complete/ Incomplete</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                                 Not Complete
                             {% endif %}
                         </td>
-                        <td class="text-center"><a href="/checklist/details/{{ item.id }}">Edit</a></td> <!-- One way to do this -->
+                        <td class="text-center"><a href="/checklist/details/{{ item.id }}">Edit Notes</a></td> <!-- One way to do this -->
                         <td class="text-center" style="font-size: large"><a href="{% url 'complete' id=item.id %}">
                             {% if item.iscomplete %}
                                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
