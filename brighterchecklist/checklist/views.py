@@ -50,52 +50,6 @@ def save_notes(request, id):
 
     return HttpResponseRedirect("/checklist/")
 
-def details(request, id):
-    if id == 0:
-        details = Checklist()
-    else:
-        details = Checklist.objects.get(id=id)
-        form = ChecklistForm(details)
-        # print('form-bound', vars(form))
-
-    # pprint(vars(details))
-    template = loader.get_template('checklist/details.html')
-
-    # print ("here", request.method)
-
-    if request.method == 'POST':
-        form = ChecklistForm(request.POST)
-        # pprint(vars(form))
-        if form.is_valid():
-            new_checklist = details
-
-            # new_checklist.source = form.cleaned_data['source']
-            new_checklist.startdate = form.cleaned_data['startdate']
-            new_checklist.iscomplete = form.cleaned_data['iscomplete']
-
-            # print (new_checklist.iscomplete)
-
-            new_checklist.save()
-
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect("/checklist/")
-    else:
-        data = {
-                'startdate':details.startdate,
-                'completedate':details.completeddate,
-                'iscomplete':details.iscomplete}
-        form = ChecklistForm(data)
-
-    # print('details ', vars(details))
-    # print('form ', vars(form))
-
-    context = {
-        'details': details,
-        'form': form
-    }
-    return HttpResponse(template.render(context, request))
 
 def complete_item(request, id):
     checklist_item = Checklist.objects.get(id=id)
