@@ -9,7 +9,7 @@ import datetime
 
 def manager(request):
     all_checklists = SourceChecklist.objects.all()
-    template = loader.get_template('checklist_manager_main.html')
+    template = loader.get_template('manager/checklist_manager_main.html')
 
     if request.method == 'POST':
         form = ChecklistTemplateForm(request.POST)
@@ -35,7 +35,7 @@ def manager(request):
 def new(request):
     new_checklist = SourceChecklist()
     form = ChecklistTemplateForm()
-    template = loader.get_template('checklist_manager_entry.html')
+    template = loader.get_template('manager/checklist_manager_entry.html')
     context = {
         'form': form,
     }
@@ -50,7 +50,7 @@ def delete(request, id):
 
 def edit(request, id):
     checklist_data = SourceChecklist.objects.get(id=id)
-    template = loader.get_template('checklist_manager_entry.html')
+    template = loader.get_template('manager/checklist_manager_entry.html')
 
     ## Put the values in the form
     data = {

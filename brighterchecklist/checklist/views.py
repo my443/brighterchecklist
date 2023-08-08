@@ -10,7 +10,7 @@ from pprint import pprint
 def checklist(request):
     checklist_items = Checklist.objects.all()
 
-    template = loader.get_template('checklist.html')
+    template = loader.get_template('checklist/checklist_items_list.html')
 
     context = {
         'checklist_items': checklist_items
@@ -29,7 +29,7 @@ def details(request, id):
         print('form-bound', vars(form))
 
     # pprint(vars(details))
-    template = loader.get_template('details.html')
+    template = loader.get_template('checklist/details.html')
 
     # print ("here", request.method)
 
@@ -79,7 +79,7 @@ def complete_item(request, id):
 
     checklist_items = Checklist.objects.all()
 
-    template = loader.get_template('checklist.html')
+    template = loader.get_template('checklist/checklist_items_list.html')
 
     context = {
         'checklist_items': checklist_items

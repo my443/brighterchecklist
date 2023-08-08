@@ -10,7 +10,7 @@ def list_template_items(request, checklist_id):
     all_template_items = ChecklistTemplateItems.objects.all().filter(checklist_id=checklist_id)
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
 
-    template = loader.get_template('checklist_template_main.html')
+    template = loader.get_template('manager/checklist_template_main.html')
 
     context = {
         'all_template_items': all_template_items,
@@ -20,7 +20,7 @@ def list_template_items(request, checklist_id):
     return HttpResponse(template.render(context))
 
 def new_template_item(request, checklist_id):
-    template = loader.get_template('checklist_template_entry.html')
+    template = loader.get_template('manager/checklist_template_entry.html')
     details = ChecklistTemplateItems()
 
     details.checklist_id = checklist_id
@@ -42,7 +42,7 @@ def new_template_item(request, checklist_id):
 
 def edit_template_item(request, item_id):
     details = ChecklistTemplateItems.objects.get(id=item_id)
-    template = loader.get_template('checklist_template_entry.html')
+    template = loader.get_template('manager/checklist_template_entry.html')
 
     ## Put the values in the form
     data = {
