@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import SourceChecklist, ChecklistTemplateItems
-from checklist.models import Checklist
+from checklist.models import Checklist, ChecklistHeader
 # from models import users
 
 import datetime
@@ -29,10 +29,16 @@ def assign_checklist_to_person(request, checklist_id, user_id):
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
     checklist_template_items = ChecklistTemplateItems.objects.all().filter(checklist_id=checklist_id)
 
+    checklist_header = ChecklistHeader()
+    checklist_header.source_checklist_id = checklist_info
+    checklist_header.assigned_to_user_id = user_id
+    checklist_header.checklist_startdate = datetime.datetime.now()
+    checklist_header.checklist_custom_title = '<Assigned '+datetime.datetime.now().strftime("%Y-%m-%d")+'> ' + checklist_info.checklist_name
+    checklist_header.save()
+
     for item in checklist_template_items:
         checklist_item = Checklist()
-        checklist_item.checklist_id = checklist_id
-        checklist_item.assigned_to_user_id = user_id
+        checklist_item.checklist_header = checklist_header
         checklist_item.checklist_item_short_text = item.template_item_short_text
         checklist_item.checklist_item_long_text_text = item.template_item_long_text
 
