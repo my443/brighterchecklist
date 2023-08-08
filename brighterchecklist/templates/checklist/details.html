@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Details</title>
+    <title>Add Notes</title>
 </head>
 <body>
 
-<h1>{{ details.source }}</h1>
-<form action="/checklist/details/{% if details.id %}{{ details.id }}{% else %}0{% endif %}" method="post">
+<h1>{{ details.checklist_item_short_text }}</h1>
+{{ details.checklist_header.checklist_custom_title }}
+<form action="/checklist/details/save/{{ details.id }}" method="POST">
     {% csrf_token %}
      {{ form }}
-
     <input type="submit" value="Submit">
 </form>
 

@@ -20,13 +20,43 @@ def checklist(request):
     return HttpResponse(template.render(context, request))
     # return HttpResponse('<h1>This is your checklist.</h1>')
 
+def edit_notes(request, id):
+    details = Checklist.objects.get(id=id)
+    template = loader.get_template('checklist/checklist_item_notes_entry.html')
+
+    data = {
+        'checklist_item_users_notes': details.checklist_item_users_notes,
+    }
+
+    form = ChecklistForm(data)
+
+    context = {
+        'details': details,
+        'form': form
+    }
+    return HttpResponse(template.render(context, request))
+
+def save_notes(request, id):
+    details = Checklist.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = ChecklistForm(request.POST)
+
+    if form.is_valid():
+        details.checklist_item_users_notes =  form.cleaned_data['checklist_item_users_notes']
+
+        # Only resave the details if the form is valid.
+        details.save()
+
+    return HttpResponseRedirect("/checklist/")
+
 def details(request, id):
     if id == 0:
         details = Checklist()
     else:
         details = Checklist.objects.get(id=id)
         form = ChecklistForm(details)
-        print('form-bound', vars(form))
+        # print('form-bound', vars(form))
 
     # pprint(vars(details))
     template = loader.get_template('checklist/details.html')
@@ -35,11 +65,11 @@ def details(request, id):
 
     if request.method == 'POST':
         form = ChecklistForm(request.POST)
-        pprint(vars(form))
+        # pprint(vars(form))
         if form.is_valid():
             new_checklist = details
 
-            new_checklist.source = form.cleaned_data['source']
+            # new_checklist.source = form.cleaned_data['source']
             new_checklist.startdate = form.cleaned_data['startdate']
             new_checklist.iscomplete = form.cleaned_data['iscomplete']
 
@@ -52,14 +82,14 @@ def details(request, id):
             # redirect to a new URL:
             return HttpResponseRedirect("/checklist/")
     else:
-        data = {'source':details.source,
+        data = {
                 'startdate':details.startdate,
                 'completedate':details.completeddate,
                 'iscomplete':details.iscomplete}
         form = ChecklistForm(data)
 
-    print('details ', vars(details))
-    print('form ', vars(form))
+    # print('details ', vars(details))
+    # print('form ', vars(form))
 
     context = {
         'details': details,
