@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
+from django.db.models import Q, Count
 from .models import Checklist, ChecklistHeader
 from .forms import ChecklistForm
 from pprint import pprint
@@ -63,7 +64,8 @@ def complete_item(request, id):
     return HttpResponseRedirect(f"/checklist/{checklist_item.checklist_header.id}")
 
 def list_assigned_checklists(request):
-    assigned_checklists = ChecklistHeader.objects.all()
+    # assigned_checklists = ChecklistHeader.objects.all()
+    assigned_checklists = ChecklistHeader.objects.annotate(number_of_incomplete=Count('checklist', filter=Q(checklist__iscomplete=False)))
     template = loader.get_template('checklist/assigned_checklists_list.html')
 
     context = {
