@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .models import Checklist
+from .models import Checklist, ChecklistHeader
 from .forms import ChecklistForm
 from pprint import pprint
-
 
 # Create your views here.
 def checklist(request,id):
@@ -67,6 +66,16 @@ def complete_item(request, id):
 
     context = {
         'checklist_items': checklist_items
+    }
+
+    return HttpResponse(template.render(context, request))
+
+def list_assigned_checklists(request):
+    assigned_checklists = ChecklistHeader.objects.all()
+    template = loader.get_template('checklist/assigned_checklists_list.html')
+
+    context = {
+        'assigned_checklists': assigned_checklists,
     }
 
     return HttpResponse(template.render(context, request))
