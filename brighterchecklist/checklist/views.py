@@ -60,15 +60,17 @@ def complete_item(request, id):
 
     checklist_item.save()
 
-    checklist_items = Checklist.objects.all().filter(checklist_header_id=checklist_item.checklist_header_id)
+    # checklist_items = Checklist.objects.all().filter(checklist_header_id=checklist_item.checklist_header_id)
+    #
+    # template = loader.get_template('checklist/checklist_items_list.html')
+    #
+    # context = {
+    #     'checklist_items': checklist_items
+    # }
+    #
+    # return HttpResponse(template.render(context, request))
 
-    template = loader.get_template('checklist/checklist_items_list.html')
-
-    context = {
-        'checklist_items': checklist_items
-    }
-
-    return HttpResponse(template.render(context, request))
+    return HttpResponseRedirect(f"/checklist/{checklist_item.checklist_header.id}")
 
 def list_assigned_checklists(request):
     assigned_checklists = ChecklistHeader.objects.all()
