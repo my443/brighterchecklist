@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import SourceChecklist, ChecklistTemplateItems
 from checklist.models import Checklist, ChecklistHeader
+import enumerations
 # from models import users
 
 import datetime
@@ -20,6 +21,7 @@ def all_users_for_assignment(request, checklist_id):
     context = {
         'all_users': all_users,
         'checklist_info': checklist_info,
+        'navigation': enumerations.Navigation.manager.name,
         # 'checklist_analytics': checklist_analytics,
     }
 

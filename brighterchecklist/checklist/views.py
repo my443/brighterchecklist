@@ -5,6 +5,7 @@ from django.db.models import Q, Count
 from .models import Checklist, ChecklistHeader
 from .forms import ChecklistForm
 from pprint import pprint
+import enumerations
 
 # Create your views here.
 def checklist(request,id):
@@ -13,7 +14,8 @@ def checklist(request,id):
     template = loader.get_template('checklist/checklist_items_list.html')
 
     context = {
-        'checklist_items': checklist_items
+        'checklist_items': checklist_items,
+        'navigation': enumerations.Navigation.checklist.name,
     }
     # x = request.__dict__
     # pprint(vars(request))
@@ -23,6 +25,7 @@ def checklist(request,id):
 def edit_notes(request, id):
     details = Checklist.objects.get(id=id)
     template = loader.get_template('checklist/checklist_item_notes_entry.html')
+    navigation = 'checklist'
 
     data = {
         'checklist_item_users_notes': details.checklist_item_users_notes,
@@ -32,7 +35,8 @@ def edit_notes(request, id):
 
     context = {
         'details': details,
-        'form': form
+        'form': form,
+        'navigation': enumerations.Navigation.checklist.name,
     }
     return HttpResponse(template.render(context, request))
 
@@ -70,6 +74,7 @@ def list_assigned_checklists(request):
 
     context = {
         'assigned_checklists': assigned_checklists,
+        'navigation': enumerations.Navigation.checklist.name,
     }
 
     return HttpResponse(template.render(context, request))

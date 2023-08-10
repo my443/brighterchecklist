@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import SourceChecklist, ChecklistTemplateItems
 from .forms import ChecklistTemplateForm, ChecklistItemForm
-import datetime
+import datetime, enumerations
 
 def list_template_items(request, checklist_id):
     ## TODO - Check to make sure that the user is allowed access to this checklist. (Before you show the checklist details.)
@@ -14,7 +14,8 @@ def list_template_items(request, checklist_id):
 
     context = {
         'all_template_items': all_template_items,
-        'checklist_info': checklist_info
+        'checklist_info': checklist_info,
+        'navigation': enumerations.Navigation.manager.name,
     }
 
     return HttpResponse(template.render(context))
@@ -35,7 +36,8 @@ def new_template_item(request, checklist_id):
 
     context = {
         'details': details,
-        'form': form
+        'form': form,
+        'navigation': enumerations.Navigation.manager.name,
     }
 
     return HttpResponse(template.render(context, request))
@@ -55,7 +57,8 @@ def edit_template_item(request, item_id):
 
     context = {
         'details': details,
-        'form': form
+        'form': form,
+        'navigation': enumerations.Navigation.manager.name,
     }
     return HttpResponse(template.render(context, request))
 

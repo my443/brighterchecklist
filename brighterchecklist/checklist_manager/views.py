@@ -5,7 +5,7 @@ from .models import SourceChecklist, ChecklistTemplateItems
 from .forms import ChecklistTemplateForm, ChecklistItemForm
 from .views_checklist_template import *
 from .views_assign_checklist_to_user import *
-import datetime
+import datetime, enumerations
 
 def manager(request):
     all_checklists = SourceChecklist.objects.all()
@@ -28,6 +28,7 @@ def manager(request):
 
     context = {
         'all_checklists': all_checklists,
+        'navigation': enumerations.Navigation.manager.name,
     }
 
     return HttpResponse(template.render(context))
@@ -38,6 +39,7 @@ def new(request):
     template = loader.get_template('manager/checklist_manager_entry.html')
     context = {
         'form': form,
+        'navigation': enumerations.Navigation.manager.name,
     }
 
     return HttpResponse(template.render(context, request))
@@ -63,6 +65,7 @@ def edit(request, id):
     context = {
         'form': form,
         'checklist_data': checklist_data,
+        'navigation': enumerations.Navigation.manager.name,
     }
 
     return HttpResponse(template.render(context, request))
