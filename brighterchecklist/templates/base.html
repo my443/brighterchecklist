@@ -46,7 +46,9 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item  ">
                                     <div class="dropdown nav-link">
-                                        <a class="btn btn-primary dropdown-toggle " style="width: 200px;text-align: left;" aria-expanded="false" data-bs-toggle="dropdown" aria-expanded="false" type="button">Checklist Manager </a>
+                                        <a class="btn btn-primary dropdown-toggle
+                                            {% if navigation == 'manager' %}btn-success {% else %}btn-primary{% endif %}"
+                                           style="width: 200px;text-align: left;" aria-expanded="false" data-bs-toggle="dropdown" aria-expanded="false" type="button">Checklist Templates </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="{% url 'manager' %}">See All Checklist Templates</a>
                                             <a class="dropdown-item" href="{% url 'new' %}">Add New Checklist Template</a>
@@ -57,7 +59,9 @@
 
                                 <li class="nav-item ">
                                     <div class="dropdown nav-link">
-                                        <a class="btn btn-primary dropdown-toggle" style="width: 200px;text-align: left;" aria-expanded="false" data-bs-toggle="dropdown" type="button">Assigned Checklists </a>
+                                        <a class="btn btn-primary dropdown-toggle
+                                            {% if navigation == 'checklist' %}btn-success {% else %}btn-primary{% endif %}"
+                                           style="width: 200px;text-align: left;" aria-expanded="false" data-bs-toggle="dropdown" type="button">Assigned Checklists </a>
                                         <div class="dropdown-menu ">
                                             <a class="dropdown-item" href="{% url 'list_assigned_checklists' %}"">See All Assigned Checklists</a>
                                             <a class="dropdown-item" href="#">Complete A Checklist</a>
@@ -81,7 +85,6 @@
                             <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                         </form>-->
                         <ul class="navbar-nav flex-nowrap ms-auto">
-                            {{ navigation  }}
                             <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
                                     <form class="me-auto navbar-search w-100">
