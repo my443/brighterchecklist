@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
+    <style>
+        /* https://discuss.appstudio.dev/t/bootstrap-4-dropdown-align-dropdown-caret-right/1619/9
+        .dropdown-toggle::after {
+            float: right;
+        }*/
+    </style>
 </head>
 
 <body id="page-top">
@@ -27,6 +33,7 @@
                     <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Table</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
+
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -35,9 +42,44 @@
             <div id="content">
                 <nav class="navbar navbar-expand bg-white shadow mb-4 topbar static-top navbar-light">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div id="navcol-3" class="collapse navbar-collapse">
+                            <ul class="navbar-nav">
+                                <li class="nav-item  ">
+                                    <div class="dropdown nav-link">
+                                        <a class="btn btn-primary dropdown-toggle " style="width: 200px;text-align: left;" aria-expanded="false" data-bs-toggle="dropdown" aria-expanded="false" type="button">Checklist Manager </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="{% url 'manager' %}">See All Checklist Templates</a>
+                                            <a class="dropdown-item" href="{% url 'new' %}">Add New Checklist Template</a>
+                                            <a class="dropdown-item" href="#">Assign a Checklists to Someone</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item ">
+                                    <div class="dropdown nav-link">
+                                        <a class="btn btn-primary dropdown-toggle" style="width: 200px;text-align: left;" aria-expanded="false" data-bs-toggle="dropdown" type="button">Assigned Checklists </a>
+                                        <div class="dropdown-menu ">
+                                            <a class="dropdown-item" href="{% url 'list_assigned_checklists' %}"">See All Assigned Checklists</a>
+                                            <a class="dropdown-item" href="#">Complete A Checklist</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item ">
+                                    <div class="dropdown nav-link">
+                                        <a class="btn btn-primary dropdown-toggle" style="width: 200px;text-align: left" aria-expanded="false" data-bs-toggle="dropdown" type="button">Users </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">First Item</a>
+                                            <a class="dropdown-item" href="#">Second Item</a>
+                                            <a class="dropdown-item" href="#">Third Item</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!--<form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                        </form>
+                        </form>-->
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             {{ navigation  }}
                             <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
