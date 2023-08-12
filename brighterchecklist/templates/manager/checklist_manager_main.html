@@ -2,8 +2,29 @@
 
 {% block main_content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/new/"><i class="fa fa-plus fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Add Checklist</a>
+    <h3 class="text-dark mb-0">Checklist Templates
+    </h3>
+    <a class="btn btn-primary-outline" data-toggle="collapse" data-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp">
+            <i class="fa fa-info-circle" aria-hidden="true"></i> Help
+        </a>
+    <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/new/"><i class="fa fa-plus fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Add Checklist</a>
 </div>
+
+
+
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+
+<div class="collapse" id="collapseHelp">
+  <div class="card card-body">
+    This is a list of templates that you have set up. You can set up a template,
+        and add checklist items to it. This is your 'recipe' for the checklists that you will assign to
+        people. Once you have checklist items added, you can assign the checklist to someone so that they
+    can complete it. You complete a checklist by checking off the items on the list. You can assign the same
+    checklist to as many people as you want, as many times as you want.
+  </div>
+</div>
+</div>
+
 <div class="row">
     <div class="col">
         <div class="table-responsive">
