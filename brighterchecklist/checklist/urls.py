@@ -10,5 +10,5 @@ urlpatterns = [
     path('checklist/assigned/', views.list_assigned_checklists, name='list_assigned_checklists'),
 
     # path('checklist/<int:id>', views.details, name='detail'),       ## TODO - Decide which pattern is better
-    path('', views.checklist),                                      ## TODO - Remove this. This won't be the default forever.
+    # path('', views.checklist),                                      ## TODO - Remove this. This won't be the default forever.
 ]

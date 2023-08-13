@@ -2,7 +2,22 @@
 
 {% block main_content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Checklist</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/checklist/assigned/"><i class="fa fa-arrow-up fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Go To Assigned Checklists</a>
+    <h3 class="text-dark mb-0">Checklist</h3>
+        <a class="btn btn-primary-outline" data-toggle="collapse" data-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp">
+            <i class="fa fa-info-circle" aria-hidden="true"></i> Help
+        </a>
+    <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/checklist/assigned/"><i class="fa fa-arrow-up fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Go To Assigned Checklists</a>
+</div>
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <div class="collapse container-fluid" id="collapseHelp">
+  <div class="bg-white">
+      <p>This is the checklist that you can complete.</p>
+      <p>
+        Check off each item when it is complete. You can add notes to your checklist item by clicking on the <u>Edit Notes</u> link.
+          When a checklist has all of the items checked off it is considered complete.
+      </p>
+  </div>
+</div>
 </div>
 <div class="row">
     <div class="col">

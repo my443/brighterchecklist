@@ -2,7 +2,22 @@
 
 {% block main_content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Assigned Checklists for << username here >></h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/"><i class="fa fa-arrow-up fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Go To Checklist Manager</a>
+    <h3 class="text-dark mb-0">Assigned Checklists</h3>
+        <a class="btn btn-primary-outline" data-toggle="collapse" data-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp">
+            <i class="fa fa-info-circle" aria-hidden="true"></i> Help
+        </a>
+    <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/"><i class="fa fa-arrow-up fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Go To Checklist Manager</a>
+</div>
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <div class="collapse container-fluid" id="collapseHelp">
+  <div class="bg-white">
+      <p>This is a a list of assigned checklists.</p>
+      <p>
+          For each assigned checklist you can choose to complete the checklist or add notes.
+          You can see whether the checklist is complete or not on this list. You can also add notes about the checklist here. 
+      </p>
+  </div>
+</div>
 </div>
 <div class="row">
     <div class="col">

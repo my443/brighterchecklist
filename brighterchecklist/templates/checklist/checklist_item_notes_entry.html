@@ -3,8 +3,22 @@
 {% block main_content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Checklist Name: {{ details.checklist_header.checklist_custom_title }}</h3>
+        <a class="btn btn-primary-outline" data-toggle="collapse" data-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp">
+            <i class="fa fa-info-circle" aria-hidden="true"></i> Help
+        </a>
     <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/template/list/{{ details.checklist_id }}">
         <i class="fa fa-list fa-sm text-white-50" style="font-size: 13px;"></i> Back&nbsp;to Checklist Items Template</a>
+</div>
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <div class="collapse container-fluid" id="collapseHelp">
+  <div class="bg-white">
+      <p>Add notes to an individual checklist item.</p>
+      <p>
+        These notes can be about what happened when this specific item was completed.
+          These notes are different than then notes that you add to an assigned checklist.
+      </p>
+  </div>
+</div>
 </div>
 <div class="row">
     <h3>Notes for: {{ details.checklist_item_short_text }}</h3>
