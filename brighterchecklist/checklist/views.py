@@ -3,7 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.db.models import Q, Count
 from .models import Checklist, ChecklistHeader
-from .forms import ChecklistForm
+from .forms import ChecklistForm, AssignedChecklistForm
+from .views_assigned_checklists import *
 from pprint import pprint
 import enumerations
 
@@ -40,8 +41,9 @@ def edit_notes(request, id):
     }
     return HttpResponse(template.render(context, request))
 
-def save_notes(request, id):
+def save_checklist_item_notes(request, id):
     details = Checklist.objects.get(id=id)
+    checklist = details.checklist_header
 
     if request.method == 'POST':
         form = ChecklistForm(request.POST)
@@ -52,8 +54,7 @@ def save_notes(request, id):
         # Only resave the details if the form is valid.
         details.save()
 
-    return HttpResponseRedirect("/checklist/")
-
+    return HttpResponseRedirect(f"/checklist/{checklist.id}")
 
 def complete_item(request, id):
     checklist_item = Checklist.objects.get(id=id)
@@ -67,14 +68,3 @@ def complete_item(request, id):
 
     return HttpResponseRedirect(f"/checklist/{checklist_item.checklist_header.id}")
 
-def list_assigned_checklists(request):
-    # assigned_checklists = ChecklistHeader.objects.all()
-    assigned_checklists = ChecklistHeader.objects.annotate(number_of_incomplete=Count('checklist', filter=Q(checklist__iscomplete=False)))
-    template = loader.get_template('checklist/assigned_checklists_list.html')
-
-    context = {
-        'assigned_checklists': assigned_checklists,
-        'navigation': enumerations.Navigation.checklist.name,
-    }
-
-    return HttpResponse(template.render(context, request))

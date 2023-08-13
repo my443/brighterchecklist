@@ -6,7 +6,11 @@ urlpatterns = [
     path('checklist/complete/<int:id>', views.complete_item, name='complete'),
     # path('checklist/details/', views.details, name='add'),
     path('checklist/details/<int:id>', views.edit_notes, name='details'),
-    path('checklist/details/save/<int:id>', views.save_notes, name='save_notes'),
+    path('checklist/details/save/<int:id>', views.save_checklist_item_notes, name='save_notes'),
+
+    path('checklist/assigned/<int:id>', views.edit_assigned_checklist_notes, name='assigned_details'),
+    path('checklist/assigned/save/<int:id>', views.save_assigned_checklist_notes, name='save_assigned_checklist_notes'),
+
     path('checklist/assigned/', views.list_assigned_checklists, name='list_assigned_checklists'),
 
     # path('checklist/<int:id>', views.details, name='detail'),       ## TODO - Decide which pattern is better
