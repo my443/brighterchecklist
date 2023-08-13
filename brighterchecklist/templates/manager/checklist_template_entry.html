@@ -2,9 +2,24 @@
 
 {% block main_content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Dashboard</h3>
+    <h3 class="text-dark mb-0">Checklist Item (Template Item) Details</h3>
+    <a class="btn btn-primary-outline" data-toggle="collapse" data-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp">
+            <i class="fa fa-info-circle" aria-hidden="true"></i> Help
+        </a>
     <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/template/list/{{ details.checklist_id }}">
         <i class="fa fa-list fa-sm text-white-50" style="font-size: 13px;"></i> Back&nbsp;to Checklist Items Template</a>
+</div>
+
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <div class="collapse container-fluid" id="collapseHelp">
+  <div class="bg-white">
+      <p>Enter details about each Checklist item here.</p>
+      <p>
+          This may be some additional instructions or something that you want the people
+          completing the checklist to remember every time they see this item.
+      </p>
+  </div>
+</div>
 </div>
 
 <div class="row">
