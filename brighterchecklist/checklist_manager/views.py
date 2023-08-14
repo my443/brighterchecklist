@@ -6,7 +6,9 @@ from .forms import ChecklistTemplateForm, ChecklistItemForm
 from .views_checklist_template import *
 from .views_assign_checklist_to_user import *
 import datetime, enumerations
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def manager(request):
     all_checklists = SourceChecklist.objects.all()
     template = loader.get_template('manager/checklist_manager_main.html')
@@ -31,7 +33,9 @@ def manager(request):
         'navigation': enumerations.Navigation.manager.name,
     }
 
-    return HttpResponse(template.render(context))
+    # https://stackoverflow.com/questions/30559020/django-login-template-doesnt-recognize-logged-user
+    # return render(request, 'manager/checklist_manager_main.html', context)
+    return HttpResponse(template.render(context, request))
 
 def new(request):
     new_checklist = SourceChecklist()
