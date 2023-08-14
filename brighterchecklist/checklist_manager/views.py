@@ -37,6 +37,7 @@ def manager(request):
     # return render(request, 'manager/checklist_manager_main.html', context)
     return HttpResponse(template.render(context, request))
 
+@login_required
 def new(request):
     new_checklist = SourceChecklist()
     form = ChecklistTemplateForm()
@@ -48,12 +49,14 @@ def new(request):
 
     return HttpResponse(template.render(context, request))
 
+@login_required
 def delete(request, id):
     checklist_to_delete = SourceChecklist.objects.get(id=id)
     checklist_to_delete.delete()
 
     return redirect('/manager/')
 
+@login_required
 def edit(request, id):
     checklist_data = SourceChecklist.objects.get(id=id)
     template = loader.get_template('manager/checklist_manager_entry.html')
@@ -74,6 +77,7 @@ def edit(request, id):
 
     return HttpResponse(template.render(context, request))
 
+@login_required
 def save(request, id):
     if id == 0:
         ## TODO - Change the owner here to be dynamic based on the the logged in user.
