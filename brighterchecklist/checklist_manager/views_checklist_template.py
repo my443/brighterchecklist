@@ -7,7 +7,7 @@ import datetime, enumerations
 
 def list_template_items(request, checklist_id):
     ## TODO - Check to make sure that the user is allowed access to this checklist. (Before you show the checklist details.)
-    all_template_items = ChecklistTemplateItems.objects.all().filter(checklist_id=checklist_id)
+    all_template_items = ChecklistTemplateItems.objects.all().filter(source_checklist_id=checklist_id)
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
 
     template = loader.get_template('manager/checklist_template_main.html')

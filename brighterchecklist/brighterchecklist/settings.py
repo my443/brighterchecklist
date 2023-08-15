@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'checklist',
-    'checklist_manager'
+    'checklist_manager',
+    'customers',
 ]
 
 MIDDLEWARE = [
