@@ -7,7 +7,7 @@ import datetime, enumerations
 
 def list_template_items(request, checklist_id):
     ## TODO - Check to make sure that the user is allowed access to this checklist. (Before you show the checklist details.)
-    all_template_items = ChecklistTemplateItems.objects.all().filter(source_checklist_id=checklist_id)
+    all_template_items = ChecklistTemplateItems.objects.all().filter(source_checklist=checklist_id)         # Use the model's FK to reference checklist ID. (It is safer)
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
 
     template = loader.get_template('manager/checklist_template_main.html')
@@ -23,8 +23,9 @@ def list_template_items(request, checklist_id):
 def new_template_item(request, checklist_id):
     template = loader.get_template('manager/checklist_template_entry.html')
     details = ChecklistTemplateItems()
+    source_checklist = SourceChecklist.objects.get(id=checklist_id)
 
-    details.checklist_id = checklist_id
+    details.source_checklist = source_checklist
     #
     # data = {
     #     'item_short_text': details.item_short_text,
@@ -32,7 +33,7 @@ def new_template_item(request, checklist_id):
     # }
 
     form = ChecklistItemForm()
-    form.checklist_id = details.checklist_id
+    form.checklist_id = details.source_checklist
 
     context = {
         'details': details,
@@ -44,13 +45,14 @@ def new_template_item(request, checklist_id):
 
 def edit_template_item(request, item_id):
     details = ChecklistTemplateItems.objects.get(id=item_id)
+
     template = loader.get_template('manager/checklist_template_entry.html')
 
     ## Put the values in the form
     data = {
         'item_short_text': details.template_item_short_text,
         'item_description': details.template_item_long_text,
-        'checklist_id': details.checklist_id,
+        'checklist_id': details.source_checklist.id,
     }
 
     form = ChecklistItemForm(data)
@@ -67,11 +69,15 @@ def save_template_item(request, item_id):
     # print (vars(request.POST))
     if item_id == 0:
         item_to_save = ChecklistTemplateItems()
-        item_to_save.checklist_id = request.POST['checklist_id']
+        checklist_id  = request.POST['checklist_id']
+
+        source_checklist = SourceChecklist.objects.get(id=checklist_id)
+        item_to_save.source_checklist = source_checklist
+        # item_to_save.checklist_id = request.POST['checklist_id']
     else:
         item_to_save = ChecklistTemplateItems.objects.get(id=item_id)
 
-    checklist_id = item_to_save.checklist_id
+    checklist = item_to_save.source_checklist
 
     form = ChecklistItemForm(request.POST)
 
@@ -84,11 +90,11 @@ def save_template_item(request, item_id):
 
         item_to_save.save()
 
-    return redirect(f'/manager/template/list/{checklist_id}')
+    return redirect(f'/manager/template/list/{checklist.id}')
 
 def delete_template_item(request, item_id):
     checklist_item_to_delete = ChecklistTemplateItems.objects.get(id=item_id)
-    checklist_id = checklist_item_to_delete.checklist_id
+    source_checklist = checklist_item_to_delete.source_checklist
     checklist_item_to_delete.delete()
 
-    return redirect(f'/manager/template/list/{checklist_id}')
+    return redirect(f'/manager/template/list/{source_checklist.id}')

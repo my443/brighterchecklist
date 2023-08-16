@@ -29,7 +29,8 @@ def all_users_for_assignment(request, checklist_id):
 
 def assign_checklist_to_person(request, checklist_id, user_id):
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
-    checklist_template_items = ChecklistTemplateItems.objects.all().filter(checklist_id=checklist_id)
+    # checklist_template_items = ChecklistTemplateItems.objects.all().filter(checklist_id=checklist_id)
+    checklist_template_items = ChecklistTemplateItems.objects.all().filter(source_checklist=checklist_info)
 
     ## Set the checklist header
     checklist_header = ChecklistHeader()

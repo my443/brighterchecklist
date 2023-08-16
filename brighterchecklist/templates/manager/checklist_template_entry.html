@@ -26,7 +26,7 @@
     <div class="col">
 
         <form action="/manager/template/save/{% if details.id %}{{ details.id }}{% else %}0{% endif %}" method="post">
-            <input name="checklist_id" value="{{ details.checklist_id }}" hidden readonly/>
+            <input name="checklist_id" value="{{ details.source_checklist.id }}" hidden readonly/>
             {% csrf_token %}
             {{ form }}
             <button class="btn btn-primary text-center" type="submit">{% if details.id %}Save{% else %}Add{% endif %} Checklist Item</button>
