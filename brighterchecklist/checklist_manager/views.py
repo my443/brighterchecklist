@@ -11,7 +11,8 @@ from django.contrib.auth.models import User, Permission
 
 @login_required
 def manager(request):
-    all_checklists = SourceChecklist.objects.all()
+    print("logged in user:", request.user.username, "\nid: ", request.user.id)
+    all_checklists = SourceChecklist.objects.all().filter(owner=request.user)
     template = loader.get_template('manager/checklist_manager_main.html')
 
     if request.method == 'POST':
@@ -82,18 +83,21 @@ def edit(request, id):
 @login_required
 def save(request, id):
     if id == 0:
-        ## TODO - Change the owner here to be dynamic based on the the logged in user.
-        checklist_to_update = SourceChecklist(owner=1)
+        ## DONE - Change the owner here to be dynamic based on the the logged in user.
+        checklist_to_update = SourceChecklist(owner=request.user)
     else:
         checklist_to_update = SourceChecklist.objects.get(id=id)
+        print (checklist_to_update.owner, request.user, checklist_to_update.owner != request.user)
 
-    form = ChecklistTemplateForm(request.POST)
+    ## SECURITY: Check for owner.
+    if checklist_to_update.owner == request.user:
+        form = ChecklistTemplateForm(request.POST)
 
-    if form.is_valid():
-        checklist_to_update.checklist_name = request.POST['checklist_name']
-        checklist_to_update.checklist_details = form.cleaned_data['checklist_details']
+        if form.is_valid():
+            checklist_to_update.checklist_name = request.POST['checklist_name']
+            checklist_to_update.checklist_details = form.cleaned_data['checklist_details']
 
-        checklist_to_update.save()
+            checklist_to_update.save()
 
     return redirect('/manager/')
 

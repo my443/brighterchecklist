@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -7,7 +8,7 @@ class SourceChecklist(models.Model):
     checklist_details = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now_add=True)
-    owner = models.IntegerField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class ChecklistTemplateItems(models.Model):
     template_item_short_text = models.TextField()
