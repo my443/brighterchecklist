@@ -4,11 +4,15 @@ from django.template import loader
 from .models import SourceChecklist, ChecklistTemplateItems
 from .forms import ChecklistTemplateForm, ChecklistItemForm
 import datetime, enumerations
+from shared.security_check import check_security
 
 def list_template_items(request, checklist_id):
     ## TODO - Check to make sure that the user is allowed access to this checklist. (Before you show the checklist details.)
     all_template_items = ChecklistTemplateItems.objects.all().filter(source_checklist=checklist_id)         # Use the model's FK to reference checklist ID. (It is safer)
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
+
+    if not check_security(checklist_info.owner, request.user):
+        return redirect('/manager/')
 
     template = loader.get_template('manager/checklist_template_main.html')
 
@@ -24,6 +28,9 @@ def new_template_item(request, checklist_id):
     template = loader.get_template('manager/checklist_template_entry.html')
     details = ChecklistTemplateItems()
     source_checklist = SourceChecklist.objects.get(id=checklist_id)
+
+    if not check_security(source_checklist.owner, request.user):
+        return redirect('/manager/')
 
     details.source_checklist = source_checklist
     #
@@ -45,6 +52,9 @@ def new_template_item(request, checklist_id):
 
 def edit_template_item(request, item_id):
     details = ChecklistTemplateItems.objects.get(id=item_id)
+
+    if not check_security(details.source_checklist.owner, request.user):
+        return redirect('/manager/')
 
     template = loader.get_template('manager/checklist_template_entry.html')
 
@@ -79,6 +89,9 @@ def save_template_item(request, item_id):
 
     checklist = item_to_save.source_checklist
 
+    if not check_security(checklist.owner, request.user):
+        return redirect('/manager/')
+
     form = ChecklistItemForm(request.POST)
 
     ## item_to_save.checklist_id = 25
@@ -95,6 +108,10 @@ def save_template_item(request, item_id):
 def delete_template_item(request, item_id):
     checklist_item_to_delete = ChecklistTemplateItems.objects.get(id=item_id)
     source_checklist = checklist_item_to_delete.source_checklist
+
+    if not check_security(source_checklist.owner, request.user):
+        return redirect('/manager/')
+
     checklist_item_to_delete.delete()
 
     return redirect(f'/manager/template/list/{source_checklist.id}')
