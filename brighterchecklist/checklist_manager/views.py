@@ -2,7 +2,7 @@ from .views_checklist_template import *
 from .views_assign_checklist_to_user import *
 import enumerations
 from django.contrib.auth.decorators import login_required
-from brighterchecklist.shared.security_check import *
+from shared.security_check import check_security
 
 @login_required
 def manager(request):
