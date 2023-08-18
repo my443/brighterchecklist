@@ -18,7 +18,7 @@ class Checklist(models.Model):
   iscomplete = models.BooleanField(default=False)
 
 class ChecklistHeader(models.Model):
-  source_checklist_id = models.ForeignKey(SourceChecklist, on_delete=models.CASCADE)
+  source_checklist = models.ForeignKey(SourceChecklist, on_delete=models.CASCADE)
   assigned_to_user_id = models.IntegerField()
   checklist_custom_title = models.TextField()
   checklist_notes = models.TextField()

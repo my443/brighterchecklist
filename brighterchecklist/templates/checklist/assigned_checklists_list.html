@@ -36,7 +36,7 @@
                 {% for item in assigned_checklists %}
                     <tr>
                         <td>{{ item.checklist_custom_title }}</td>
-                        <td>{{ item.source_checklist_id.checklist_name }}</td>
+                        <td>{{ item.source_checklist.checklist_name }} {{ item.source_checklist.owner }}</td>
                         <td class="text-center">{{ item.checklist_startdate|date:'Y-m-d' }}</td>
                         <td class="text-center">
                             {% if item.number_of_incomplete == 0 %}

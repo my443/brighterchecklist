@@ -7,10 +7,16 @@ from .forms import ChecklistForm, AssignedChecklistForm
 from .views_assigned_checklists import *
 from pprint import pprint
 import enumerations
+from shared.security_check import check_security
+from django.shortcuts import redirect
 
 # Create your views here.
-def checklist(request,id):
-    checklist_items = Checklist.objects.all().filter(checklist_header_id=id)
+def checklist(request, id):
+    checklist_items = Checklist.objects.all().filter(checklist_header=id)
+    checklist_header = ChecklistHeader.objects.get(id=id)
+
+    if not check_security(checklist_header.source_checklist.owner, request.user):
+        return redirect('list_assigned_checklists')
 
     template = loader.get_template('checklist/checklist_items_list.html')
 
@@ -25,6 +31,11 @@ def checklist(request,id):
 
 def edit_notes(request, id):
     details = Checklist.objects.get(id=id)
+    checklist_header = ChecklistHeader.objects.get(id=details.checklist_header)
+
+    if not check_security(checklist_header.source_checklist.owner, request.user):
+        return redirect('list_assigned_checklists')
+
     template = loader.get_template('checklist/checklist_item_notes_entry.html')
     navigation = 'checklist'
 
@@ -43,7 +54,10 @@ def edit_notes(request, id):
 
 def save_checklist_item_notes(request, id):
     details = Checklist.objects.get(id=id)
-    checklist = details.checklist_header
+    checklist_header = details.checklist_header
+
+    if not check_security(checklist_header.source_checklist.owner, request.user):
+        return redirect('list_assigned_checklists')
 
     if request.method == 'POST':
         form = ChecklistForm(request.POST)
@@ -54,10 +68,14 @@ def save_checklist_item_notes(request, id):
         # Only resave the details if the form is valid.
         details.save()
 
-    return HttpResponseRedirect(f"/checklist/{checklist.id}")
+    return HttpResponseRedirect(f"/checklist/{checklist_header.id}")
 
 def complete_item(request, id):
     checklist_item = Checklist.objects.get(id=id)
+    checklist_header = checklist_item.checklist_header
+
+    if not check_security(checklist_header.source_checklist.owner, request.user):
+        return redirect('list_assigned_checklists')
 
     if checklist_item.iscomplete:
         checklist_item.iscomplete = False
