@@ -31,7 +31,7 @@ def checklist(request, id):
 
 def edit_notes(request, id):
     details = Checklist.objects.get(id=id)
-    checklist_header = ChecklistHeader.objects.get(id=details.checklist_header)
+    checklist_header = ChecklistHeader.objects.get(id=details.checklist_header.id)
 
     if not check_security(checklist_header.source_checklist.owner, request.user):
         return redirect('list_assigned_checklists')

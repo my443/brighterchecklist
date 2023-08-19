@@ -28,8 +28,8 @@
                         <th style="width: 35%">Source Checklist Name</th>
                         <th class="text-center">Start Date</th>
                         <th class="text-center">Checklist Status</th>
-                        <th class="text-center">Notes</th>
-                        <th class="text-center">Go To Checklist</th>
+                        <th class="text-center" width="3%">Notes</th>
+                        <th class="text-center" width="3%">Go To Checklist</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@
                                 Not Complete
                             {% endif %}
                         </td>
-                        <td class="text-center"><a href="/checklist/assigned/{{ item.id }}">Edit Notes</a></td> <!-- One way to do this -->
+                        <td class="text-center"><a href="/checklist/assigned/{{ item.id }}"><i class="fa fa-comment" aria-hidden="true"></i></a></td> <!-- One way to do this -->
                         <td class="text-center" style="font-size: large"><a href="{% url 'checklist' id=item.id %}">
                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </a></td> <!-- Another way to do this -->
