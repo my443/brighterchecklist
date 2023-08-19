@@ -13,7 +13,7 @@ def list_assigned_checklists(request):
     ## Get the checklists you are allowed to see.
     source_checklists_you_can_access = SourceChecklist.objects.filter(owner=request.user).values_list('id')
 
-    ## Then filter them out here. 
+    ## Then filter them out here.
     assigned_checklists = ChecklistHeader.objects \
                             .annotate(number_of_incomplete=Count('checklist', filter=Q(checklist__iscomplete=False))) \
                             .filter(source_checklist__in=source_checklists_you_can_access)
