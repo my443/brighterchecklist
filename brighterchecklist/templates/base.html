@@ -24,6 +24,26 @@
         }*/
     </style>
 </head>
+<!-- Modal -->
+<div class="modal fade" id="featureNotAvailableModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Function Is Not Available</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        I'm sorry, this feature is not yet implemented.
+          <br> I hope to release this soon.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <body id="page-top">
     <div id="wrapper">
@@ -37,7 +57,7 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link active" href="/manager/"><i class="fas fa-tachometer-alt"></i><span>Checklist Templates</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'list_assigned_checklists' %}"><i class="fa fa-users" style="font-size: 13px;"></i><span>Assigned Checklists</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="reports.html"><i class="fas fa-table"></i><span>Reports</span></a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#featureNotAvailableModal" href="reports.html"><i class="fas fa-table"></i><span>Reports</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/logout/"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
 
                 </ul>
