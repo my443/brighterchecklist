@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-np1-#+(60fkr1_^m#op%p588$@_y%)z@-m$_9ua(a7l@4+xob0
 DEBUG = True
 
 ALLOWED_HOSTS = ['147.182.149.69', 'brighterchecklist.com', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['https://*.brighterchecklist.com', 'http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.brighterchecklist.com', 'https://brighterchecklist.com', 'http://127.0.0.1']
 
 
 # Application definition
