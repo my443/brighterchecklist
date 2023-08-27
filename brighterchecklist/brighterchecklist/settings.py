@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'checklist',
     'checklist_manager',
     'customers',
+    'website',
 ]
 
 MIDDLEWARE = [

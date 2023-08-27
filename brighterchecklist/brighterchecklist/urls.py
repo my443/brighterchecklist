@@ -19,9 +19,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('checklist.urls')),
-    # path('', include("django.contrib.auth.urls")),
     path('', include('checklist_manager.urls')),
+    path('', include('website.urls')),
     path('admin/', admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("", include("django.contrib.auth.urls")),
+    path('', include("django.contrib.auth.urls")),
 ]
