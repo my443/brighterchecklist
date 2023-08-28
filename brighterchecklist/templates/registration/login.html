@@ -33,7 +33,11 @@
       <!-- sun colour: #007bff -->
     <img class="mb-4" src="{% static 'assets/img/sun-blue.png' %}" alt="" width="72" height="57">
       <p><b>BrighterChecklist</b></p>
-
+    {% if form.errors %}
+      <div class="border border-danger">
+        <p style="color: darkred">Username or password is not correct.</p>
+    {% endif %}
+      </div>
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
