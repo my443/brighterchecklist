@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from .pg import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,16 +89,11 @@ WSGI_APPLICATION = 'brighterchecklist.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        'HOST': 'localhost',
-        'NAME': 'brighterchecklist2023',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-
-        # "OPTIONS": {
-        #     "passfile": ".my_pgpass",
-        # },
+        'HOST': pg_host,
+        'PORT': pg_port,
+        'NAME': pg_name,
+        'USER': pg_user,
+        'PASSWORD': pg_pass,
     }
 }
 

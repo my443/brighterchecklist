@@ -2,5 +2,4 @@
 **/__pycache__/
 *.sqlite3
 static/
-.pg_service.conf
-.my_pgpass
+pg.py
