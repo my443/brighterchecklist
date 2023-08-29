@@ -3,3 +3,4 @@
 *.sqlite3
 static/
 pg.py
+set_base_dir.py
