@@ -12,3 +12,6 @@ def home(request):
 
     # return render(request, template)
     return HttpResponse(template.render(context, request))
+
+def sign_up_user(request):
+    pass

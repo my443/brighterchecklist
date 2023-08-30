@@ -6,6 +6,7 @@ class Customer(models.Model):
     company_name = models.TextField()                       ## If no company name is supplied, the feild is the first-lastname feilds.
     firstname = models.TextField(null=True)
     lastname = models.TextField(null=True)
+    email = models.TextField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now_add=True)
 
