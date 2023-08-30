@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': pg_name,
         'USER': pg_user,
         'PASSWORD': pg_pass,
-        'OPTIONS': {'sslmode': 'require'},
+        'OPTIONS': pg_options,
     }
 }
 
