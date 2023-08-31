@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,21 +12,71 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/login_css.css' %}">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <nav class="navbar navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">BrighterChecklist</a>
+            <div>
 
-<h1>Please tell us a bit more about yourself.</h1>
-<form action="/your-name/" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
+            </div>
+        </div>
+        <div class="container">
+            <div>
+                <i><small>Repeating checklists for consistent performance.</small></i>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid" >
+        <h1>Thanks for signing up!</h1>
+
+        <h2>The sign-up consists of three steps:</h2>
+        <ol class="mb-3">
+            <li class="mb-3">Please tell us a bit more about yourself. Fill out the form below.</li>
+            <li class="mb-3">Email your payment to brighterchecklist@johnv.ca <br>
+                Currently the <b><u>Checklist Manager</u></b> is the only plan available.<br>
+                Email $144 to brighterchecklist@johnv.ca from the same email address you used to sign up with.<br>
+                If you are using a different email address for your payment, send an email to let us know what to look
+                for.
+            </li>
+            <li class="mb-3">Receive an email indicating that your account has been activated. This could take up to 24
+                hours.
+            </li>
+        </ol>
+    </div>
+    <hr>
+    <h2>Tell Us About Yourself</h2>
+    <p>Please complete the form below.</p>
+    <form action="{% url 'save_customer' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-success" type="submit" value="Sign Up For BrighterChecklist">
+    </form>
+    <hr>
+    <div class="ps-xl-5">
+        <h4>Email Payments</h4>
+        <p>BrighterChecklist is in beta mode. We want to deliver maximum value in the shortest period of time.<br>
+            If customers want, payment methods other than email could be valuable in the future, but not for version
+            1.0. </p>
+        <p>Receiving payments by email is the quickest way to give you the chance to experience the value of repeating
+            checklists.</p>
+        <h4>Account Activation</h4>
+        <p>When your account is activated you will receive an email with your username and password.
+            <br>To change your password, email brighterchecklist@johnv.ca</p>
+        <p>Account activations and changes to accounts may take up to 24 hours.</p>
+
+    </div>
+
+    <hr>
+
+
+</div>
+
 </body>
 </html>
