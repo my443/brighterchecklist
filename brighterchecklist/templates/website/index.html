@@ -105,10 +105,12 @@
             </div>
         </section>
         <!-- Image Showcases-->
-        <section class="showcase">
+        <div class="showcase">
             <div class="container-fluid p-0">
                 <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('../../static/website_assets/assets/img/bg-showcase-1.jpg')"></div>
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background:lightgrey;
+                    background-image: url('../../static/website_assets/assets/img/RepeatableChecklistGraphic.png');
+                    background-size: contain;background-repeat: no-repeat;background-position: center; "></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                         <h2>Everyday Work</h2>
                         <ul class="lead mb-0">
@@ -124,7 +126,8 @@
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('../../static/website_assets/assets/img/bg-showcase-2.jpg')"></div>
+                    <div class="col-lg-6 text-white showcase-img" style="background:lightslategray;background-image: url('../../static/website_assets/assets/img/moose_face.jpg');
+                                background-size: contain;background-repeat: no-repeat;background-position: center; "></div>
                     <div class="col-lg-6 my-auto showcase-text">
                         <h2>This is not your regular <u>To Do</u> app</h2>
                         <p class="lead mb-0">You have your todo list.<br> But what about the tasks you repeat in the same way time after time?</p><br>
@@ -133,15 +136,15 @@
                             <br>Now you can too. </p>
                     </div>
                 </div>
-                <div class="row g-0">
+                <div class="row g-0 d-none">
                     <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('../../static/website_assets/assets/img/bg-showcase-3.jpg')"></div>
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                         <h2>Documentation</h2>
-                        <p class="lead mb-0">Follow this link for complete instructions.<br><a href="" target="_blank">Go to documentation now.</a> </p>
+                        <p class="lead mb-0">Follow this link for complete instructions.<br><a href="" target="_blank">Go to documentation</a> </p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
         <!-- Testimonials-->
         <section class="testimonials text-center bg-light">
             <div class="container">
@@ -154,7 +157,7 @@
                             <ul class="text-start">
                                 <li>Create checklists</li>
                                 <li>Assign checklists to yourself or others</li>
-                                <li>Add or remove team members (Checklist Completers)</li>
+                                <li><span style="color: darkred">[Coming Soon]</span> Add or remove team members to complete checklists</li>
                                 <li>See details on checklists that are completed</li>
                                 <li>Complete checklists assigned to you</li>
                                 <li>All features included in the <u>Checklist Completer</u> package</li>
@@ -169,6 +172,7 @@
                     <div class="col-lg-6">
                         <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                             <img class="img-fluid rounded-circle mb-3" src="{% static 'website_assets/assets/img/testimonials-2.jpg' %}" alt="..." />
+                            <h4 style="color: darkred">[COMING SOON]</h4>
                             <h5>Checklist Completer</h5>
                             <ul class="text-start">
                                 <li>Complete checklists assigned to you.</li>
@@ -180,6 +184,8 @@
                             <p class="font-weight-light mb-0">Paid annually
                                 <br>
                                 <small><i>Cancel anytime</i></small></p>
+                            <br>
+                            <p style="color: darkred"><b>Individual <u>Checklist Completer</u> accounts will be available later in the BETA release.</b></p>
                         </div>
                         </div>
                     </div>
@@ -209,7 +215,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="footer bg-light">
+        <footer class="footer bg-light d-none" >
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
