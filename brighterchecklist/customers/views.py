@@ -9,18 +9,27 @@ from django.http import HttpResponse
 def new_customer_signup(request):
     template = loader.get_template('customers/customer_details.html')
 
+    new_customer = create_new_customer(request.POST['emailAddress'])
+    form = generate_new_customer_form(new_customer)
+
+    context = {'form': form}
+
+    return HttpResponse(template.render(context, request))
+
+def create_new_customer(email_address: str):
     new_customer = Customer()
-    new_customer.email = request.POST['emailAddress']
+    new_customer.email = email_address
     new_customer.save()
 
+    return new_customer
+
+def generate_new_customer_form(new_customer: Customer):
     data = {'email': new_customer.email,
             'customer_uuid': new_customer.customer_uuid}
 
     form = CustomerSignupForm(initial=data)
 
-    context = {'form': form}
-
-    return HttpResponse(template.render(context, request))
+    return form
 
 def save_customer_sign_up(request):
     customer_uuid = request.POST['customer_uuid']
