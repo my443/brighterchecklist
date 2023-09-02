@@ -41,4 +41,7 @@ def thankyou(request):
 
     return HttpResponse(template.render(context, request))
 
+def something_to_test():
+    return 'hello world'
+
 
