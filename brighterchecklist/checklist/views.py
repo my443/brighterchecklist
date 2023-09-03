@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 
 # Create your views here.
 def checklist(request, id):
-    checklist_items = Checklist.objects.all().filter(checklist_header=id)
+    checklist_items = Checklist.objects.all().filter(checklist_header=id).order_by('pk')
     checklist_header = ChecklistHeader.objects.get(id=id)
 
     if not check_security(checklist_header.source_checklist.owner, request.user):
@@ -42,6 +42,7 @@ def edit_notes(request, id):
 
     data = {
         'checklist_item_users_notes': details.checklist_item_users_notes,
+        'iscomplete': details.iscomplete,
     }
 
     form = ChecklistForm(data)
@@ -64,6 +65,7 @@ def save_checklist_item_notes(request, id):
         form = ChecklistForm(request.POST)
 
     if form.is_valid():
+        details.iscomplete = form.cleaned_data['iscomplete']
         details.checklist_item_users_notes =  form.cleaned_data['checklist_item_users_notes']
 
         # Only resave the details if the form is valid.

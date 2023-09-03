@@ -3,6 +3,9 @@ from django import forms
 class ChecklistForm(forms.Form):
     checklist_item_users_notes = forms.CharField(widget=forms.Textarea(attrs={'class': "form-control", "rows": "5"}),
                                         required=False, label=False)
+    iscomplete = forms.BooleanField(label="Item Is Complete",
+                                widget=forms.CheckboxInput(),
+                                required=False)
 
 class AssignedChecklistForm(forms.Form):
     assigned_checklist_custom_title = forms.CharField(label="Assigned Checklist Custom Name", widget=forms.TextInput(attrs={'class': "form-control", 'autofocus':True, 'onfocus':'this.select()', 'required':'True'}), required=False)

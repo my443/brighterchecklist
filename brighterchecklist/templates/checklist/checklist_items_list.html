@@ -39,7 +39,7 @@
                         <th style="width: 35%">Details</th>
                         <th class="text-center">Start Date</th>
                         <th class="text-center">Status</th>
-                        <th class="text-center" width="3%">Notes</th>
+                        <!-- <th class="text-center" width="3%">Notes</th> -->
                         <th class="text-center" width="3%">Checkmark</th>
                     </tr>
                 </thead>
@@ -47,7 +47,7 @@
                 {% for item in checklist_items %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ item.checklist_item_short_text }}</td>
+                        <td><a href="/checklist/details/{{ item.id }}" >{{ item.checklist_item_short_text }}</a></td>
                         <td class="text-center">{{ item.startdate|date:'Y-m-d H:i' }}</td>
                         <td class="text-center">
                             {% if item.iscomplete %}
@@ -56,7 +56,7 @@
                                 Not Complete
                             {% endif %}
                         </td>
-                        <td class="text-center"><a href="/checklist/details/{{ item.id }}" ><i class="fa fa-comment" aria-hidden="true"></i></a></td> <!-- One way to do this -->
+                        <!-- <td class="text-center"><a href="/checklist/details/{{ item.id }}" ><i class="fa fa-comment" aria-hidden="true"></i></a></td> -->
                         <td class="text-center" style="font-size: large" ><a href="{% url 'complete' id=item.id %}">
                             {% if item.iscomplete %}
                                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
