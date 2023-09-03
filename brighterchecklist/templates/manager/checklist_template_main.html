@@ -36,17 +36,23 @@
                     <tr>
                         <th style="width: 35%">Checklist Item Short Text</th>
                         <th class="">Checklist Item Description</th>
-                        <th class="text-center" width="3%">Edit Item</th>
+                        <!-- <th class="text-center" width="3%">Edit Item</th> -->
                         <th class="text-center" width="3%">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for row in all_template_items %}
                     <tr>
-                        <td>{{ row.template_item_short_text }}</td>
+                        <td><a href="/manager/template/edit/{{row.id}}" data-toggle="tooltip" title="Edit Checklist Item">
+                            {{ row.template_item_short_text }}</a>
+                        </td>
                         <td>{{ row.template_item_long_text }}</td>
-                        <td class="text-center"><a href="/manager/template/edit/{{row.id}}"><i class="fa fa-th-list"></i></a> </td>
-                        <td class="text-center"><a href="/manager/template/delete/{{row.id}}"><i class="fa fa-trash" style="font-size: 17px;"></i></a></td>
+                        <!-- <td class="text-center"><a href="/manager/template/edit/{{row.id}}"><i class="fa fa-th-list"></i></a> </td> -->
+                        <td class="text-center">
+                            <a href="/manager/template/delete/{{row.id}}" data-toggle="tooltip" title="Delete Checklist Item">
+                                <i class="fa fa-trash" style="font-size: 17px;"></i>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
