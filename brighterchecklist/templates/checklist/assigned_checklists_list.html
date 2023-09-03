@@ -28,14 +28,20 @@
                         <th style="width: 35%">Source Checklist Name</th>
                         <th class="text-center">Start Date</th>
                         <th class="text-center">Checklist Status</th>
-                        <th class="text-center" width="3%">Notes</th>
-                        <th class="text-center" width="3%">Go To Checklist</th>
+                        <!-- <th class="text-center" width="3%">Notes</th>
+                        <th class="text-center" width="3%">Go To Checklist</th> -->
                     </tr>
                 </thead>
                 <tbody>
                 {% for item in assigned_checklists %}
                     <tr>
-                        <td>{{ item.checklist_custom_title }}</td>
+                        <td><a href="{% url 'checklist' id=item.id %}">{{ item.checklist_custom_title }}</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="/checklist/assigned/{{ item.id }}" data-toggle="tooltip"
+                               title="Edit Assigned Checklist Title and Notes">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
                         <td>{{ item.source_checklist.checklist_name }} {{ item.source_checklist.owner }}</td>
                         <td class="text-center">{{ item.checklist_startdate|date:'Y-m-d' }}</td>
                         <td class="text-center">
@@ -45,10 +51,10 @@
                                 Not Complete
                             {% endif %}
                         </td>
-                        <td class="text-center"><a href="/checklist/assigned/{{ item.id }}"><i class="fa fa-comment" aria-hidden="true"></i></a></td> <!-- One way to do this -->
+                        <!-- <td class="text-center"><a href="/checklist/assigned/{{ item.id }}"><i class="fa fa-comment" aria-hidden="true"></i></a></td>
                         <td class="text-center" style="font-size: large"><a href="{% url 'checklist' id=item.id %}">
                                 <i class="fa fa-play" aria-hidden="true"></i>
-                        </a></td> <!-- Another way to do this -->
+                        </a></td>--> <!-- Another way to do this -->
                     </tr>
                 {% endfor %}
                 </tbody>

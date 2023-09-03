@@ -23,6 +23,7 @@ def checklist(request, id):
     context = {
         'checklist_items': checklist_items,
         'navigation': enumerations.Navigation.checklist.name,
+        'checklist_header': checklist_header,
     }
     # x = request.__dict__
     # pprint(vars(request))

@@ -38,6 +38,7 @@ def edit_assigned_checklist_notes(request, id):
     navigation = 'checklist'
 
     data = {
+        'assigned_checklist_custom_title': details.checklist_custom_title,
         'assigned_checklist_notes': details.checklist_notes,
     }
 
@@ -62,6 +63,7 @@ def save_assigned_checklist_notes(request, id):
 
     if form.is_valid():
         details.checklist_notes =  form.cleaned_data['assigned_checklist_notes']
+        details.checklist_custom_title = form.cleaned_data['assigned_checklist_custom_title']
 
         # Only resave the details if the form is valid.
         details.save()
