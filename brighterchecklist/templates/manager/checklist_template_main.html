@@ -2,7 +2,11 @@
 
 {% block main_content %}
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Template Checklist Items for: {{ checklist_info.checklist_name }}</h3>
+    <h3 class="text-dark mb-0">Template Checklist Items for: {{ checklist_info.checklist_name }}
+        <a href="/manager/edit/{{checklist_info.id}}" data-toggle="tooltip" title="Edit Template Title and Description">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </a>
+    </h3>
     <a class="btn btn-primary-outline" data-toggle="collapse" data-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp">
             <i class="fa fa-info-circle" aria-hidden="true"></i> Help
         </a>
