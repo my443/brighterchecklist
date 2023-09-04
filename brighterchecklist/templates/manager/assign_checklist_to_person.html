@@ -23,6 +23,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th width="1%">#</th>
                         <th style="width: 35%">User's Name</th>
                         <th class="">Username</th>
                         <th class="text-center">Number Of Times This Checklist Has Been Assigned</th>
@@ -34,6 +35,7 @@
                 <tbody>
                 {% for row in all_users %}
                     <tr>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ row.first_name }} {{ row.last_name }}</td>
                         <td>{{ row.username }}</td>
                         <td class="text-center"> - </td>

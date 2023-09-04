@@ -42,6 +42,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th style="width: 35%">Checklist Item Short Text</th>
                         <th class="">Checklist Item Description</th>
                         <!-- <th class="text-center" width="3%">Edit Item</th> -->
@@ -51,6 +52,7 @@
                 <tbody>
                 {% for row in all_template_items %}
                     <tr>
+                        <td>{{ forloop.counter }}</td>
                         <td><a href="/manager/template/edit/{{row.id}}" data-toggle="tooltip" title="Edit Checklist Item">
                             {{ row.template_item_short_text }}</a>
                         </td>

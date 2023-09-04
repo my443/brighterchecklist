@@ -24,6 +24,7 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
+                        <th>#</th>
                         <th style="width: 35%">Checklist Custom Name</th>
                         <th style="width: 35%">Source Checklist Name</th>
                         <th class="text-center">Start Date</th>
@@ -35,6 +36,7 @@
                 <tbody>
                 {% for item in assigned_checklists %}
                     <tr>
+                        <td>{{ forloop.counter }}</td>
                         <td><a href="{% url 'checklist' id=item.id %}">{{ item.checklist_custom_title }}</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <a href="/checklist/assigned/{{ item.id }}" data-toggle="tooltip"

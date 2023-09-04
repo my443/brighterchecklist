@@ -29,6 +29,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th width="1%">#</th>
                         <th style="width: 35%">Checklist Name</th>
                         <th class="text-center" width="3%">Assign Checklist</th>
                         <!--<th class="text-center" width="3%">Edit Name and Description</th>-->
@@ -39,6 +40,7 @@
                 <tbody>
                 {% for row in all_checklists %}
                     <tr>
+                        <td>{{ forloop.counter }}</td>
                         <td>
                             <a href="/manager/template/list/{{row.id}}" data-toggle="tooltip" title="See Template Items">{{ row.checklist_name }}</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
