@@ -37,6 +37,7 @@ def assign_checklist_to_person(request, checklist_id, user_id):
         ## Set the checklist header
         checklist_header = ChecklistHeader()
         checklist_header.source_checklist = checklist_info
+        checklist_header.checklist_notes = checklist_info.checklist_details
         checklist_header.assigned_to_user_id = user_id
         checklist_header.checklist_startdate = datetime.datetime.now()
         checklist_header.checklist_custom_title = '<Assigned '+datetime.datetime.now().strftime("%Y-%m-%d")+'> ' + checklist_info.checklist_name
@@ -47,7 +48,10 @@ def assign_checklist_to_person(request, checklist_id, user_id):
             checklist_item = Checklist()
             checklist_item.checklist_header = checklist_header
             checklist_item.checklist_item_short_text = item.template_item_short_text
-            checklist_item.checklist_item_long_text_text = item.template_item_long_text
+            # checklist_item.checklist_item_long_text_text = item.template_item_long_text
+            checklist_item.checklist_item_users_notes = item.template_item_long_text
+
+            print (item.template_item_long_text)
 
             checklist_item.save()
 

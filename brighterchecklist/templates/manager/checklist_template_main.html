@@ -11,6 +11,10 @@
             <i class="fa fa-info-circle" aria-hidden="true"></i> Help
         </a>
     <div class="float-end">
+    <a class="btn btn-success btn-sm d-none d-sm-inline-block" data-bs-toggle="collapse" href="#notesCollapse"
+       role="button" aria-expanded="false" aria-controls="notesCollapse">
+        Show / Hide Notes
+    </a>
     <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/users/{{checklist_info.id}}">
         <i class="fa fa-user-plus"></i> Assign Checklist to User</a>
             <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="/manager/template/new/{{checklist_info.id}}">
@@ -28,6 +32,10 @@
   </div>
 </div>
 </div>
+    <div class="collapse" id="notesCollapse">
+    <h5>Checklist Details</h5>
+        {{ checklist_info.checklist_details }}
+    </div>
 <div class="row">
     <div class="col">
         <div class="table-responsive">
