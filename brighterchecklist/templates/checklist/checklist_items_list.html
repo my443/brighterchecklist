@@ -31,11 +31,13 @@
 </div>
 </div>
 
-    <div class="collapse" id="notesCollapse">
-        <b>Checklist Details</b>
-        <p>{{ checklist_header.checklist_notes }}</p>
-    </div>
-
+    {% if checklist_header.checklist_notes %}
+        <div class="collapse" id="notesCollapse">
+            <b>Checklist Details</b>
+            <p>{{ checklist_header.checklist_notes }}</p>
+        </div>
+    {% endif %}
+    
 <div class="row">
     <div class="col">
         <div class="table-responsive">
@@ -71,10 +73,12 @@
                             {% endif %}
                         </a></td> <!-- Another way to do this -->
                     </tr>
-                    <tr class="collapse" id="notesCollapse">
-                        <td></td>
-                        <td colspan="4">{{ item.checklist_item_users_notes }}</td>
-                    </tr>
+                    {% if item.checklist_item_users_notes %}
+                        <tr class="collapse" id="notesCollapse">
+                            <td></td>
+                            <td colspan="4">{{ item.checklist_item_users_notes }}</td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
