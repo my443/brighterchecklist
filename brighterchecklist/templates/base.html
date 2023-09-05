@@ -39,10 +39,10 @@
 
     <script>
         // This is used for saving the rich-text for text-area fields.
-        function save_value(form_id, text_element_id) {
+        function save_value(text_element_id) {
             details = $('#editor').trumbowyg('html');
             document.getElementById(text_element_id).value = details;
-            document.getElementById(form_id).submit();
+            {#document.getElementById(form_id).submit();#}
         }
     </script>
 </head>

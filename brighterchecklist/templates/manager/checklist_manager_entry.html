@@ -37,10 +37,9 @@
             </div>
         </div>
 
-            <button class="btn btn-primary text-center" type="submit" hidden>{% if checklist_data.id %}Save{% else %}Add{% endif %} Checklist</button>
+            <button class="btn btn-primary text-center" type="submit" onclick="save_value('id_checklist_details');">{% if checklist_data.id %}Save{% else %}Add{% endif %} Checklist</button>
         </form>
 
-        <button class="btn btn-primary text-center" type="submit" onclick="save_value('save_form_information', 'id_checklist_details')">{% if checklist_data.id %}Save{% else %}Add{% endif %} Checklist</button>
     </div>
 
 

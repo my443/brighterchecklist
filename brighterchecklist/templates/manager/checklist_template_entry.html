@@ -25,12 +25,31 @@
 <div class="row">
     <div class="col">
 
-        <form action="/manager/template/save/{% if details.id %}{{ details.id }}{% else %}0{% endif %}" method="post">
+        <form action="/manager/template/save/{% if details.id %}{{ details.id }}{% else %}0{% endif %}" method="post" id="save_form_information">
             <input name="checklist_id" value="{{ details.source_checklist.id }}" hidden readonly/>
             {% csrf_token %}
-            {{ form }}
-            <button class="btn btn-primary text-center" type="submit">{% if details.id %}Save{% else %}Add{% endif %} Checklist Item</button>
+            {{ form.item_short_text.label }}
+            {{ form.item_short_text }}
+            {{ form.item_description.label }}
+            <div class="d-none">
+                {{ form.item_description }}
+            </div>
+
+            <div class="trumbowyg-editor">
+                <div id="editor" contenteditable="true" dir="ltr">
+                {{ form.item_description.text }}
+                </div>
+            </div>
+
+            <button class="btn btn-primary text-center" type="submit" onclick="save_value('id_item_description')">{% if details.id %}Save{% else %}Add{% endif %} Checklist Item</button>
         </form>
     </div>
 </div>
+
+    <script>
+        // To populate the editor.
+        $('#editor').trumbowyg();
+        $('#editor').trumbowyg('html', document.getElementById('id_item_description').value);
+    </script>
+
 {% endblock %}

@@ -56,7 +56,7 @@
                         <td><a href="/manager/template/edit/{{row.id}}" data-toggle="tooltip" title="Edit Checklist Item">
                             {{ row.template_item_short_text }}</a>
                         </td>
-                        <td>{{ row.template_item_long_text }}</td>
+                        <td>{{ row.template_item_long_text|safe }}</td>
                         <!-- <td class="text-center"><a href="/manager/template/edit/{{row.id}}"><i class="fa fa-th-list"></i></a> </td> -->
                         <td class="text-center">
                             <a href="/manager/template/delete/{{row.id}}" data-toggle="tooltip" title="Delete Checklist Item">
