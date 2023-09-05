@@ -115,3 +115,8 @@ def delete_template_item(request, item_id):
     checklist_item_to_delete.delete()
 
     return redirect(f'/manager/template/list/{source_checklist.id}')
+
+def test_editor(request):
+    template = loader.get_template('manager/editor_testing.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

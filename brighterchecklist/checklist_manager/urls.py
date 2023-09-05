@@ -17,4 +17,6 @@ urlpatterns = [
 
     path('manager/users/<int:checklist_id>', views.all_users_for_assignment, name='all_users_assignments'),
     path('manager/users/assign/<int:checklist_id>/<int:user_id>', views.assign_checklist_to_person, name='assign_checklist_to_person'),
+
+    path('manager/editor', views.test_editor, name='editor_test'),
 ]
