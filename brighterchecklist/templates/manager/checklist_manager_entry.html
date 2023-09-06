@@ -23,30 +23,14 @@
 
         <form action="/manager/save/{% if checklist_data.id %}{{ checklist_data.id }}{% else %}0{% endif %}" method="post" id="save_form_information">
             {% csrf_token %}
-            {{ form.checklist_name.label }}
-            {{ form.checklist_name }}
-            {{ form.checklist_details.label }}
-
-        <div class="d-none">
-            {{ form.checklist_details }}
-        </div>
-
-        <div class="trumbowyg-editor">
-            <div id="editor" contenteditable="true" dir="ltr">
-            {{ form.checklist_details.text }}
-            </div>
-        </div>
-
-            <button class="btn btn-primary text-center" type="submit" onclick="save_value('id_checklist_details');">{% if checklist_data.id %}Save{% else %}Add{% endif %} Checklist</button>
+            {{ form }}
+            <button class="btn btn-primary text-center" type="submit" >{% if checklist_data.id %}Save{% else %}Add{% endif %} Checklist</button>
         </form>
-
     </div>
-
 
     <script>
         // To populate the editor.
-        $('#editor').trumbowyg();
-        $('#editor').trumbowyg('html', document.getElementById('id_checklist_details').value);
+        $('textarea').trumbowyg()
     </script>
 </div>
 {% endblock %}

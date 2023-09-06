@@ -76,7 +76,7 @@
                     {% if item.checklist_item_users_notes %}
                         <tr class="collapse" id="notesCollapse">
                             <td></td>
-                            <td colspan="4">{{ item.checklist_item_users_notes }}</td>
+                            <td colspan="4">{{ item.checklist_item_users_notes|safe }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
