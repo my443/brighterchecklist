@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render, redirect
 from .models import Customer
 from .forms import CustomerSignupForm
-from .email import sendmail_simple, sendmail_by_class
+from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
 from django.template import loader
 from django.http import HttpResponse
 
@@ -43,7 +43,7 @@ def save_customer_sign_up(request):
 
     customer.save()
 
-    sendmail_by_class()
+    sendemail_with_template()
 
     return thankyou(request)
 

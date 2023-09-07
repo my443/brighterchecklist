@@ -1,5 +1,7 @@
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 def sendmail_simple():
     send_mail(
@@ -12,7 +14,6 @@ def sendmail_simple():
 
 def sendmail_by_class():
     ## You can also use the EmailMessage class for simple messages.
-    ## Here is a link to how you can send messages from a template: https://stackoverflow.com/questions/3005080/how-to-send-html-email-with-django-with-dynamic-content-in-it
 
     email = EmailMultiAlternatives()
     email.from_email = 'admin@brighterchecklist.com'
@@ -25,5 +26,20 @@ def sendmail_by_class():
     ## Add an Attachment.
     # file = open(r'C:\Projects\092 BrighterChecklist\misc\sample-pdf.pdf', "rb")
     # email.attach('sample-pdf.pdf', file.read() ,'application/pdf')
+
+    email.send()
+
+def sendemail_with_template():
+    ## Here is a link to how you can send messages from a template: https://stackoverflow.com/questions/3005080/how-to-send-html-email-with-django-with-dynamic-content-in-it
+    email = EmailMultiAlternatives()
+    email.from_email = 'admin@brighterchecklist.com'
+    email.to = ["fortyfour-three@teksavvy.com"]
+    email.subject = 'Welcome to BighterChecklist'
+
+    html_content = render_to_string('email/welcome_template.html', {'varname': 'value'})  # render with dynamic value
+    text_content = strip_tags(html_content)
+
+    email.body = text_content
+    email.attach_alternative(html_content, 'text/html')
 
     email.send()
