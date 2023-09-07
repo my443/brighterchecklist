@@ -4,3 +4,4 @@
 #static/
 pg.py
 set_base_dir.py
+**/secrets.py
