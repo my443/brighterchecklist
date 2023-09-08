@@ -43,9 +43,15 @@ def save_customer_sign_up(request):
 
     customer.save()
 
-    sendemail_with_template()
+    send_email_after_save(customer)
 
     return thankyou(request)
+
+def send_email_after_save(customer):
+    context = { 'customer': customer }
+    sendemail_with_template(customer.email, context)
+
+    return 0
 
 def thankyou(request):
     template = loader.get_template('customers/thankyou.html')

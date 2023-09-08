@@ -29,14 +29,15 @@ def sendmail_by_class():
 
     email.send()
 
-def sendemail_with_template():
+def sendemail_with_template(email_to, context):
     ## Here is a link to how you can send messages from a template: https://stackoverflow.com/questions/3005080/how-to-send-html-email-with-django-with-dynamic-content-in-it
     email = EmailMultiAlternatives()
     email.from_email = 'admin@brighterchecklist.com'
-    email.to = ["fortyfour-three@teksavvy.com"]
+    email.to = [email_to]
+    email.bcc = ["john@johnv.ca"]
     email.subject = 'Welcome to BighterChecklist'
 
-    html_content = render_to_string('email/welcome_template.html', {'varname': 'value'})  # render with dynamic value
+    html_content = render_to_string('email/welcome_template.html', context)  # render with dynamic value
     text_content = strip_tags(html_content)
 
     email.body = text_content
