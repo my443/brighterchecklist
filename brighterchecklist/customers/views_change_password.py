@@ -2,8 +2,15 @@ from django.shortcuts import render
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 # https://www.programcreek.com/python/example/50650/django.contrib.auth.forms.PasswordChangeForm
+
+## TODO - Add @login_required decorator
+## TODO - Put this link somewhere useful.
+## TODO - Move the template to the registration template folder.
+
+@login_required
 def change_password(request):
     """View function for the user profile, profile.html."""
     # Get the current user's user object
@@ -25,7 +32,7 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
 
-    return render(request, 'customers/password_change.html', {
+    return render(request, 'registration/password_change.html', {
         'form': form,
         'user': request.user,
         # 'current_user': current_user_name,
