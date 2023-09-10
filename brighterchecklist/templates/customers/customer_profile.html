@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <h3>User Information</h3>
+    <p><i>Your status and account details.</i></p>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col" style="width: 3%">#</th>
+      <th scope="col" style="width: 15%">Data Point</th>
+      <th scope="col">Profile Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>First Name</td>
+      <td>{{ user.first_name|default:"" }}</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Last Name</td>
+      <td>{{ user.last_name|default:"" }} </td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>User Name</td>
+      <td>{{ user.username|default:"" }}</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Email Address</td>
+      <td>{{ user.email|default:"" }}</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>User Status</td>
+      <td>Free Account</td>
+    </tr>
+  </tbody>
+</table>
+
+    <h3>Managed Accounts</h3>
+    <p><i>These are the accounts that this manager can assign checklists to.</i></p>
+    <table class="table">
+
+    </table>
+{% endblock %}
