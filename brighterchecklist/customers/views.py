@@ -6,6 +6,7 @@ from .forms import CustomerSignupForm
 from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
 from django.template import loader
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 def new_customer_signup(request):
     template = loader.get_template('customers/customer_details.html')
@@ -61,7 +62,28 @@ def thankyou(request):
 
 def profile(request):
     template = loader.get_template('customers/customer_profile.html')
-    context = {}
+    user = request.user
+
+    user_to_update = User.objects.get(pk=request.user.pk)
+    
+    if request.method == "POST":
+        form = CustomerSignupForm(request.POST)
+
+        if form.is_valid():
+            user_to_update.first_name = form.firstname
+            user_to_update.last_name = form.lastname
+
+            user_to_update.save()
+
+            return redirect('profile')
+    else:
+        inital = {'first_name': user.first_name, 'last_name':user.last_name}
+        form = CustomerSignupForm(initial=inital)
+
+    form.fields['firstname'].widget.attrs['class']='w-75'  ## Assign a class to the form field
+    form.fields['lastname'].widget.attrs['class'] = 'w-75'
+
+    context = {'form': form}
 
     return HttpResponse(template.render(context, request))
 

@@ -1,46 +1,64 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-    <h3>User Information</h3>
-    <p><i>Your status and account details.</i></p>
+    <div class="row ">
+        <div class="col-6">
+            <h3>User Information</h3>
+            <p><i>Your status and account details.</i></p>
+        </div>
+        <div class="col-6 text-end">
+            <a href="" class="btn btn-success" role="button">Edit Profile</a>
+        </div>
+    </div>
 
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col" style="width: 3%">#</th>
-      <th scope="col" style="width: 15%">Data Point</th>
-      <th scope="col">Profile Data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>First Name</td>
-      <td>{{ user.first_name|default:"" }}</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Last Name</td>
-      <td>{{ user.last_name|default:"" }} </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>User Name</td>
-      <td>{{ user.username|default:"" }}</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Email Address</td>
-      <td>{{ user.email|default:"" }}</td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>User Status</td>
-      <td>Free Account</td>
-    </tr>
-  </tbody>
-</table>
-
+<form action="{% url 'profile' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 3%">#</th>
+                <th scope="col" style="width: 15%">Data Point</th>
+                <th scope="col">Profile Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>First Name</td>
+                <td>{{ form.first_name }} {{ user.first_name|default:"" }}</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Last Name</td>
+                <td>{{ form.last_name }} {{ user.last_name|default:"" }} </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>User Name</td>
+                <td>{{ user.username|default:"" }}</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Email Address</td>
+                <td>{{ user.email|default:"" }}</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>Account Type</td>
+                <td>Trial Account <!-- TODO - add a 'change account' dropdown --> </td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>Payment Action</td>
+                <td><a href="https://buy.stripe.com/fZe4iq03Y7NT0FOaEE" class="btn-success">Pay Annual Subscription</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <button type="submit">Save form.</button>
+    </form>
     <h3>Managed Accounts</h3>
     <p><i>These are the accounts that this manager can assign checklists to.</i></p>
     <table class="table">
