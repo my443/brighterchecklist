@@ -1,12 +1,11 @@
 import datetime
 
-from django.shortcuts import render, redirect
 from .models import Customer
-from .forms import CustomerSignupForm, ProfileUpdateForm
-from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
+from .forms import CustomerSignupForm
+from .email import sendemail_with_template
 from django.template import loader
 from django.http import HttpResponse
-from django.contrib.auth.models import User
+
 
 def new_customer_signup(request):
     template = loader.get_template('customers/customer_details.html')
@@ -60,31 +59,6 @@ def thankyou(request):
 
     return HttpResponse(template.render(context, request))
 
-def profile(request):
-    template = loader.get_template('customers/customer_profile.html')
-    user = request.user
-
-    user_to_update = User.objects.get(pk=request.user.pk)
-    
-    if request.method == "POST":
-        form = ProfileUpdateForm(request.POST)
-        if form.is_valid():
-            user_to_update.first_name = form.cleaned_data['first_name']
-            user_to_update.last_name = form.cleaned_data['last_name']
-
-            user_to_update.save()
-
-            return redirect('profile')
-    else:
-        inital = {'first_name': user.first_name, 'last_name':user.last_name}
-        form = ProfileUpdateForm(initial=inital)
-
-    # form.fields['first_name'].widget.attrs['class']='w-75'  ## Assign a class to the form field
-    # form.fields['last_name'].widget.attrs['class'] = 'w-75'
-
-    context = {'form': form}
-
-    return HttpResponse(template.render(context, request))
 
 def something_to_test():
     return 'hello world'

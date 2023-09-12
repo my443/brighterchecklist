@@ -4,10 +4,15 @@ from django.conf import settings
 import uuid
 
 class Customer(models.Model):
+    CUSTOMER_TYPE = [
+        ("CM", "Checklist Manager"),
+        ("CC", "Checklist Completer"),
+    ]
     company_name = models.TextField(null=True)                       ## If no company name is supplied, the feild is the first-lastname feilds.
     firstname = models.TextField(null=True)
     lastname = models.TextField(null=True)
     email = models.TextField(null=True)
+    customer_type = models.TextField(max_length=2, choices=CUSTOMER_TYPE, default="CM")
     customer_uuid = models.UUIDField(default = uuid.uuid4, editable = False, null=False)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now_add=True)

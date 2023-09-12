@@ -3,15 +3,15 @@
 {% block main_content %}
     <div class="row ">
         <div class="col-6">
-            <h3>User Information</h3>
-            <p><i>Your status and account details.</i></p>
+            <h3>Customer Information</h3>
+            <p><i>Information about a Checklist Manager or User</i></p>
         </div>
         <div class="col-6 text-end">
-            <button class="btn btn-success" role="button" type="submit" onclick="document.getElementById('submitButton').click()">Save Profile</button>
+            <button class="btn btn-success" role="button" type="submit" onclick="document.getElementById('submitButton').click()">Save Customer Information</button>
         </div>
     </div>
 
-<form action="{% url 'add_customer' %}" method="post">
+<form action="{% url 'profile' %}" method="post">
     {% csrf_token %}
     <div class="row">
         <table class="table">
@@ -44,6 +44,11 @@
                 <td>{{ user.email|default:"" }}</td>
             </tr>
             <tr>
+                <th scope="row">3</th>
+                <td>Customer Type</td>
+                <td>{{ customer.get_customer_type_display|default:"" }}</td>
+            </tr>
+            <tr>
                 <th scope="row">4</th>
                 <td>Account Type</td>
                 <td>Trial Account <!-- TODO - add a 'change account' dropdown --> </td>
@@ -61,27 +66,9 @@
         <div class="col-6">
         </div>
         <div class="col-6 text-end">
-            <button class="btn btn-success" role="button" type="submit" id="submitButton">Save Profile</button>
+            <button class="btn btn-success" role="button" type="submit" id="submitButton">Save Customer Information</button>
         </div>
     </div>
     </form>
-    <hr/>
-    <!-- Managed Accounts Section -->
-    <div class="row ">
-        <div class="col-6">
-            <h3>Managed Accounts</h3>
-            <p><i>These are the accounts that this manager can assign checklists to.</i></p>
-        </div>
-        <div class="col-6 text-end">
-            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{% url 'add_customer' %}"><i
-                    class="fa fa-plus fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Add New User</a>
-        </div>
-    </div>
 
-
-
-
-    <table class="table">
-
-    </table>
 {% endblock %}
