@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render, redirect
 from .models import Customer
-from .forms import CustomerSignupForm
+from .forms import CustomerSignupForm, ProfileUpdateForm
 from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
 from django.template import loader
 from django.http import HttpResponse
@@ -67,21 +67,20 @@ def profile(request):
     user_to_update = User.objects.get(pk=request.user.pk)
     
     if request.method == "POST":
-        form = CustomerSignupForm(request.POST)
-
+        form = ProfileUpdateForm(request.POST)
         if form.is_valid():
-            user_to_update.first_name = form.firstname
-            user_to_update.last_name = form.lastname
+            user_to_update.first_name = form.cleaned_data['first_name']
+            user_to_update.last_name = form.cleaned_data['last_name']
 
             user_to_update.save()
 
             return redirect('profile')
     else:
         inital = {'first_name': user.first_name, 'last_name':user.last_name}
-        form = CustomerSignupForm(initial=inital)
+        form = ProfileUpdateForm(initial=inital)
 
-    form.fields['firstname'].widget.attrs['class']='w-75'  ## Assign a class to the form field
-    form.fields['lastname'].widget.attrs['class'] = 'w-75'
+    # form.fields['first_name'].widget.attrs['class']='w-75'  ## Assign a class to the form field
+    # form.fields['last_name'].widget.attrs['class'] = 'w-75'
 
     context = {'form': form}
 

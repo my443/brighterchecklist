@@ -7,7 +7,7 @@
             <p><i>Your status and account details.</i></p>
         </div>
         <div class="col-6 text-end">
-            <a href="" class="btn btn-success" role="button">Edit Profile</a>
+            <button class="btn btn-success" role="button" type="submit" onclick="document.getElementById('submitButton').click()">Save Profile</button>
         </div>
     </div>
 
@@ -26,12 +26,12 @@
             <tr>
                 <th scope="row">1</th>
                 <td>First Name</td>
-                <td>{{ form.first_name }} {{ user.first_name|default:"" }}</td>
+                <td>{{ form.first_name|default:"" }}</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
                 <td>Last Name</td>
-                <td>{{ form.last_name }} {{ user.last_name|default:"" }} </td>
+                <td>{{ form.last_name|default:"" }}</td>
             </tr>
             <tr>
                 <th scope="row">3</th>
@@ -57,7 +57,13 @@
             </tbody>
         </table>
     </div>
-    <button type="submit">Save form.</button>
+    <div class="row ">
+        <div class="col-6">
+        </div>
+        <div class="col-6 text-end">
+            <button class="btn btn-success" role="button" type="submit" id="submitButton">Save Profile</button>
+        </div>
+    </div>
     </form>
     <h3>Managed Accounts</h3>
     <p><i>These are the accounts that this manager can assign checklists to.</i></p>
