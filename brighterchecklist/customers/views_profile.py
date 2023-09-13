@@ -6,7 +6,7 @@ from .forms import ProfileUpdateForm
 
 
 def profile(request):
-    template = loader.get_template('customers/customer_profile.html')
+    template = loader.get_template('customers/customer_self_profile.html')
     user = request.user
 
     user_to_update = User.objects.get(pk=request.user.pk)

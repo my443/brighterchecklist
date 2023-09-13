@@ -11,7 +11,7 @@
         </div>
     </div>
 
-<form action="{% url 'profile' %}" method="post">
+<form action="{% url 'add_customer' %}" method="post">
     {% csrf_token %}
     <div class="row">
         <table class="table">
@@ -26,12 +26,12 @@
             <tr>
                 <th scope="row">1</th>
                 <td>First Name</td>
-                <td>{{ form.first_name|default:"" }}</td>
+                <td>{{ form.firstname|default:"" }}</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
                 <td>Last Name</td>
-                <td>{{ form.last_name|default:"" }}</td>
+                <td>{{ form.lastname|default:"" }}</td>
             </tr>
             <tr>
                 <th scope="row">3</th>
@@ -41,12 +41,12 @@
             <tr>
                 <th scope="row">3</th>
                 <td>Email Address</td>
-                <td>{{ user.email|default:"" }}</td>
+                <td>{{ form.email|default:"" }}</td>
             </tr>
             <tr>
                 <th scope="row">3</th>
                 <td>Customer Type</td>
-                <td>{{ customer.get_customer_type_display|default:"" }}</td>
+                <td>{{ form.customer_type|default:"" }}</td>
             </tr>
             <tr>
                 <th scope="row">4</th>
