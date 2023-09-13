@@ -11,7 +11,7 @@
         </div>
     </div>
 
-<form action="{% url 'add_customer' %}" method="post">
+<form action="{% url 'edit_customer' customer.id|default:0 %}" method="post">
     {% csrf_token %}
     <div class="row">
         <table class="table">
@@ -35,26 +35,32 @@
             </tr>
             <tr>
                 <th scope="row">3</th>
-                <td>User Name</td>
-                <td>{{ user.username|default:"" }}</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
                 <td>Email Address</td>
                 <td>{{ form.email|default:"" }}</td>
             </tr>
             <tr>
-                <th scope="row">3</th>
+                <th scope="row">4</th>
                 <td>Customer Type</td>
                 <td>{{ form.customer_type|default:"" }}</td>
             </tr>
+            </tr>
             <tr>
-                <th scope="row">4</th>
+                <th scope="row">5</th>
+                <td>Company Name</td>
+                <td>{{ form.company_name|default:"" }}</td>
+            </tr>
+            <tr>
+                <th scope="row">6</th>
+                <td>Customer Unique Identifier</td>
+                <td>{{ form.customer_uuid }} {{ form.customer_uuid.value }}</td>
+            </tr>
+            <tr>
+                <th scope="row">7</th>
                 <td>Account Type</td>
                 <td>Trial Account <!-- TODO - add a 'change account' dropdown --> </td>
             </tr>
             <tr>
-                <th scope="row">4</th>
+                <th scope="row">8</th>
                 <td>Payment Action</td>
                 <td><a href="https://buy.stripe.com/fZe4iq03Y7NT0FOaEE" class="btn-success">Pay Annual Subscription</a>
                 </td>
