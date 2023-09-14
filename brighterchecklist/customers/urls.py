@@ -7,7 +7,9 @@ urlpatterns = [
     path('thankyou/', views.thankyou, name='thank_you'),
 
     path('password/', views_change_password.change_password, name='change_password'),
+
     path('profile/', views_profile.profile, name='profile'),
+    path('list/', views_customer.list_customers, name='list_customers'),
 
     path('edit/<int:id>', views_customer.edit_customer, name='edit_customer'),
 ]

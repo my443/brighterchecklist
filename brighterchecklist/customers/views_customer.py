@@ -28,6 +28,7 @@ def edit_customer(request, id):
 def get_customer_details(request, id):
     if id == 0:
         customer = Customer()
+        customer.account_expiry_date = datetime.date.today() + datetime.timedelta(days=15)
     else:
         customer = Customer.objects.get(id=id)
 
@@ -70,3 +71,11 @@ def generate_customer_form(customer: Customer):
     form = CustomerForm(initial=data)
 
     return  form
+
+def list_customers(request):
+    template = loader.get_template('customers/customer_list.html')
+    customers = Customer.objects.all().order_by('id')
+
+    context = { 'customers': customers }
+
+    return HttpResponse(template.render(context, request))

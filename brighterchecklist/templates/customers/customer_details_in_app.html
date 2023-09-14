@@ -7,7 +7,8 @@
             <p><i>Information about a Checklist Manager or User</i></p>
         </div>
         <div class="col-6 text-end">
-            <button class="btn btn-success" role="button" type="submit" onclick="document.getElementById('submitButton').click()">Save Customer Information</button>
+            <a href="{% url 'list_customers' %}" class="btn btn-primary btn-sm d-none d-sm-inline-block" >Account List</a>
+            <button class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" type="submit" onclick="document.getElementById('submitButton').click()">Save Customer Information</button>
         </div>
     </div>
 
@@ -72,7 +73,7 @@
         <div class="col-6">
         </div>
         <div class="col-6 text-end">
-            <button class="btn btn-success" role="button" type="submit" id="submitButton">Save Customer Information</button>
+            <button class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" type="submit" id="submitButton">Save Customer Information</button>
         </div>
     </div>
     </form>

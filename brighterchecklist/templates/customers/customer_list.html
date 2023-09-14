@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <div class="row ">
+        <div class="col-6">
+            <h3>Managed Accounts</h3>
+            <p><i>These are the accounts that this manager can assign checklists to.</i></p>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="{% url 'edit_customer' 0 %}"><i
+                    class="fa fa-plus fa-sm text-white-50" style="font-size: 13px;"></i>&nbsp;Add New Account</a>
+        </div>
+    </div>
+<div class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th style="width: 35%">Associate Name</th>
+                        <th class="">Email</th>
+                        <th class="">Expiry Date</th>
+                        <th class="text-center" style="width: 3%">Number Of Checklists Assigned</th>
+                        <th class="text-center" style="width: 3%">Number Of Checklists Completed</th>
+                        <th class="text-center" style="width: 3%">Number of Open Checklists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for row in customers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{% url 'edit_customer' row.id %}" data-toggle="tooltip" title="See Account Details">
+                            {{ row.firstname }} {{ row.lastname }}</a>
+                        </td>
+                        <td>{{ row.email }}</td>
+                        <td>{{ row.account_expiry_date }}</td>
+                        <!-- <td class="text-center"><a href="/manager/template/edit/{{row.id}}"><i class="fa fa-th-list"></i></a> </td> -->
+                        <td class="text-center">
+                            -
+                        </td>
+                        <td class="text-center">
+                            -
+                        </td>
+                        <td class="text-center">
+                            -
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
