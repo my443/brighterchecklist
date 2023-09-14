@@ -17,7 +17,6 @@ class Customer(models.Model):
     email = models.TextField(null=True)
     customer_type = models.TextField(max_length=2, choices=CUSTOMER_TYPE, default="CM")
     customer_uuid = models.UUIDField(default = uuid.uuid4, editable = False, null=False)
-    days_until_account_expiry = models.IntegerField(default=14)
     account_expiry_date = models.DateField(default=FUTURE_DATE)
     created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now_add=True)
