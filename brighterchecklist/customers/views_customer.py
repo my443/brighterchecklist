@@ -6,6 +6,7 @@ from .forms import CustomerForm
 from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
 from django.template import loader
 from django.http import HttpResponse
+import datetime
 
 def edit_customer(request, id):
     """For when a Checklist Manager adds a customer"""
@@ -16,8 +17,11 @@ def edit_customer(request, id):
     save_customer_details(request, id, customer)
     form = generate_customer_form(customer)
 
+    days_until_expiry = get_days_until_expiry(customer.account_expiry_date)
+
     context = {'customer': customer,
-               'form': form}
+               'form': form,
+               'days_until_expiry': days_until_expiry}
 
     return HttpResponse(template.render(context, request))
 
@@ -28,6 +32,10 @@ def get_customer_details(request, id):
         customer = Customer.objects.get(id=id)
 
     return customer
+
+def get_days_until_expiry(expiry_date):
+    days_until_expiry = (expiry_date - datetime.date.today()).days
+    return days_until_expiry
 
 def save_customer_details(request, id, customer):
     if request.method == "POST":
