@@ -217,6 +217,13 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
+                    <div class="row">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p> {{ message.tags }}{{ message }} </p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                     {% block main_content %}
                     {% endblock %}
             </div>

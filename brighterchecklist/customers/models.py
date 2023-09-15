@@ -14,7 +14,7 @@ class Customer(models.Model):
     company_name = models.TextField(null=True)                       ## If no company name is supplied, the feild is the first-lastname feilds.
     firstname = models.TextField(null=True)
     lastname = models.TextField(null=True)
-    email = models.TextField(null=True)
+    email = models.TextField(null=True, unique=True)
     customer_type = models.TextField(max_length=2, choices=CUSTOMER_TYPE, default="CM")
     customer_uuid = models.UUIDField(default = uuid.uuid4, editable = False, null=False)
     account_expiry_date = models.DateField(default=FUTURE_DATE)

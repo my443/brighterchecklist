@@ -1,12 +1,16 @@
 import datetime
 
 from django.shortcuts import render, redirect
+from django.db.models import DEFERRED                   ## Used to get the _state of a transaction
+from django.contrib.auth.models import User
+from django.template import loader
+from django.http import HttpResponse
+from django.contrib import messages
+
 from .models import Customer
 from .forms import CustomerForm
 from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
-from django.template import loader
-from django.http import HttpResponse
-import datetime
+import shared.random_password_generator as random_password_generator
 
 def edit_customer(request, id):
     """For when a Checklist Manager adds a customer"""
@@ -15,6 +19,7 @@ def edit_customer(request, id):
 
     customer = get_customer_details(request, id)
     save_customer_details(request, id, customer)
+
     form = generate_customer_form(customer)
 
     days_until_expiry = get_days_until_expiry(customer.account_expiry_date)
@@ -41,9 +46,7 @@ def get_days_until_expiry(expiry_date):
 def save_customer_details(request, id, customer):
     if request.method == "POST":
         form = CustomerForm(request.POST)
-        print ('we got a request')
         if form.is_valid():
-            print("the form was ok.")
             customer.firstname = form.cleaned_data['firstname']
             customer.lastname = form.cleaned_data['lastname']
             customer.customer_type = form.cleaned_data['customer_type']
@@ -51,7 +54,17 @@ def save_customer_details(request, id, customer):
             customer.email = form.cleaned_data['email']
             customer.company_name = form.cleaned_data['company_name']
 
-            customer.save()
+            ## TODO - Start here.
+            ## Add that if the email doesn't exist, add the customer.
+            ## Then add the relationship
+            ## Otherwise you just save the customer.
+            if Customer.objects.filter(email=customer.email).exists():
+                messages.error(request, 'That item already exists')
+
+            # if customer._state.adding:
+            #     add_user(customer.firstname, customer.lastname, customer.email)
+            else:
+                customer.save()
 
             return True                     ## True if the form is saved.
         else:
@@ -79,3 +92,17 @@ def list_customers(request):
     context = { 'customers': customers }
 
     return HttpResponse(template.render(context, request))
+
+def add_user(firstname, lastname, email):
+    """Adds a new user when needed.
+        Also updates the user/customer relationship."""
+
+    password = random_password_generator.random_password(12)
+
+    user = User.objects.create_user(username=email, first_name=firstname, last_name=lastname, password=password)
+    user.save()
+
+    return user.id
+
+def add_customer_to_user_connection(user_id, customer_id):
+    pass
