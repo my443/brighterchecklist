@@ -7,7 +7,7 @@ from django.template import loader
 from django.http import HttpResponse
 from django.contrib import messages
 
-from .models import Customer
+from .models import Customer, UsersToCustomerRelationship
 from .forms import CustomerForm
 from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
 import shared.random_password_generator as random_password_generator
@@ -64,9 +64,16 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
             # if customer._state.adding:
             #     add_user(customer.firstname, customer.lastname, customer.email)
             if Customer.objects.filter(email=request.POST['email']).exists() and id == 0:
-                messages.error(request, 'That username already exists in our system.')
+                messages.error(request, 'That email address already exists in our system.<br>Every account requires a unique email address.')
+            elif customer._state.adding:
+                customer.save()
+                user = add_user(customer.firstname, customer.lastname, customer.email)
+                add_customer_to_user_connection(user, customer)
+                messages.success(request, 'User information was successfully updated.')
             else:
                 customer.save()
+                messages.success(request, 'User information was successfully updated.')
+
 
             return True                     ## True if the form is saved.
         else:
@@ -95,7 +102,7 @@ def list_customers(request):
 
     return HttpResponse(template.render(context, request))
 
-def add_user(firstname: str, lastname: str, email: str) -> int:
+def add_user(firstname: str, lastname: str, email: str) -> User:
     """Adds a new user when needed.
         Also updates the user/customer relationship."""
 
@@ -104,7 +111,15 @@ def add_user(firstname: str, lastname: str, email: str) -> int:
     user = User.objects.create_user(username=email, first_name=firstname, last_name=lastname, password=password)
     user.save()
 
-    return user.id
+    return user
 
-def add_customer_to_user_connection(user_id, customer_id):
-    pass
+def add_customer_to_user_connection(user: User, customer: Customer) -> bool:
+    relationship = UsersToCustomerRelationship()
+
+    relationship.user = user
+    relationship.customer = customer
+    relationship.is_active = True
+
+    relationship.save()
+
+    return True

@@ -221,7 +221,7 @@
                         {% if messages %}
                             {% for message in messages %}
                                 <span class="border {% if message.tags == 'error' %}border-danger text-danger
-                                                    {% else %}border-info text-bg-info text-info{% endif %}">{{ message }}</span>
+                                                    {% else %}border-success  text-success{% endif %}">{{ message|safe }}</span>
 
                             {% endfor %}
                         {% endif %}
