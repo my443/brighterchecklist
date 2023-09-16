@@ -7,7 +7,7 @@ from django.template import loader
 from django.http import HttpResponse
 
 
-def new_customer_signup(request):
+def new_customer_signup(request) -> HttpResponse:
     template = loader.get_template('customers/customer_details.html')
 
     new_customer = create_new_customer(request.POST['emailAddress'])
@@ -17,7 +17,7 @@ def new_customer_signup(request):
 
     return HttpResponse(template.render(context, request))
 
-def create_new_customer(email_address: str):
+def create_new_customer(email_address: str) -> Customer:
     new_customer = Customer()
     new_customer.email = email_address
     new_customer.save()

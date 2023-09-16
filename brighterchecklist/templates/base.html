@@ -220,14 +220,16 @@
                     <div class="row">
                         {% if messages %}
                             {% for message in messages %}
-                                <p> {{ message.tags }}{{ message }} </p>
+                                <span class="border {% if message.tags == 'error' %}border-danger text-danger
+                                                    {% else %}border-info text-bg-info text-info{% endif %}">{{ message }}</span>
+
                             {% endfor %}
                         {% endif %}
                     </div>
                     {% block main_content %}
                     {% endblock %}
-            </div>
-            <footer class="bg-white sticky-footer">
+                </div>
+                <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © BrighterChecklist 2023</span></div>
                 </div>

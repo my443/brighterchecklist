@@ -12,7 +12,7 @@ from .forms import CustomerForm
 from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
 import shared.random_password_generator as random_password_generator
 
-def edit_customer(request, id):
+def edit_customer(request, id) -> HttpResponse:
     """For when a Checklist Manager adds a customer"""
 
     template = loader.get_template('customers/customer_details_in_app.html')
@@ -30,7 +30,7 @@ def edit_customer(request, id):
 
     return HttpResponse(template.render(context, request))
 
-def get_customer_details(request, id):
+def get_customer_details(request, id: int) -> Customer:
     if id == 0:
         customer = Customer()
         customer.account_expiry_date = datetime.date.today() + datetime.timedelta(days=15)
@@ -39,13 +39,15 @@ def get_customer_details(request, id):
 
     return customer
 
-def get_days_until_expiry(expiry_date):
+def get_days_until_expiry(expiry_date: datetime) -> int:
     days_until_expiry = (expiry_date - datetime.date.today()).days
+
     return days_until_expiry
 
-def save_customer_details(request, id, customer):
+def save_customer_details(request, id: int, customer: Customer) -> bool:
     if request.method == "POST":
         form = CustomerForm(request.POST)
+
         if form.is_valid():
             customer.firstname = form.cleaned_data['firstname']
             customer.lastname = form.cleaned_data['lastname']
@@ -58,11 +60,11 @@ def save_customer_details(request, id, customer):
             ## Add that if the email doesn't exist, add the customer.
             ## Then add the relationship
             ## Otherwise you just save the customer.
-            if Customer.objects.filter(email=customer.email).exists():
-                messages.error(request, 'That item already exists')
 
             # if customer._state.adding:
             #     add_user(customer.firstname, customer.lastname, customer.email)
+            if Customer.objects.filter(email=request.POST['email']).exists() and id == 0:
+                messages.error(request, 'That username already exists in our system.')
             else:
                 customer.save()
 
@@ -93,7 +95,7 @@ def list_customers(request):
 
     return HttpResponse(template.render(context, request))
 
-def add_user(firstname, lastname, email):
+def add_user(firstname: str, lastname: str, email: str) -> int:
     """Adds a new user when needed.
         Also updates the user/customer relationship."""
 
