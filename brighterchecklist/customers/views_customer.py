@@ -63,12 +63,18 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
 
             # if customer._state.adding:
             #     add_user(customer.firstname, customer.lastname, customer.email)
+
+
+
             if Customer.objects.filter(email=request.POST['email']).exists() and id == 0:
                 messages.error(request, 'That email address already exists in our system.<br>Every account requires a unique email address.')
             elif customer._state.adding:
                 customer.save()
                 user = add_user(customer.firstname, customer.lastname, customer.email)
-                add_customer_to_user_connection(user, customer)
+
+                manager = request.user             ## To get the manager related to this transaction.
+                add_customer_to_user_connection(user, customer, manager)
+
                 messages.success(request, 'User information was successfully updated.')
             else:
                 customer.save()
@@ -96,7 +102,11 @@ def generate_customer_form(customer: Customer):
 
 def list_customers(request):
     template = loader.get_template('customers/customer_list.html')
-    customers = Customer.objects.all().order_by('id')
+    # customers = Customer.objects.all().order_by('id')
+
+    related_customers = UsersToCustomerRelationship.objects.filter(manager=1).select_related('customer')
+    customers = [item.customer for item in related_customers]
+
 
     context = { 'customers': customers }
 
@@ -113,11 +123,12 @@ def add_user(firstname: str, lastname: str, email: str) -> User:
 
     return user
 
-def add_customer_to_user_connection(user: User, customer: Customer) -> bool:
+def add_customer_to_user_connection(user: User, customer: Customer, manager: User) -> bool:
     relationship = UsersToCustomerRelationship()
 
     relationship.user = user
     relationship.customer = customer
+    relationship.manager = manager
     relationship.is_active = True
 
     relationship.save()
