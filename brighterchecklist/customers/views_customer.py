@@ -9,10 +9,10 @@ from django.contrib import messages
 
 from .models import Customer, UsersToCustomerRelationship
 from .forms import CustomerForm
-from .email import sendmail_simple, sendmail_by_class, sendemail_with_template
+from .email import sendemail_with_template
 import shared.random_password_generator as random_password_generator
 
-def edit_customer(request, id) -> HttpResponse:
+def edit_customer(request, id: int) -> HttpResponse:
     """For when a Checklist Manager adds a customer"""
 
     template = loader.get_template('customers/customer_details_in_app.html')
@@ -64,16 +64,17 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
             # if customer._state.adding:
             #     add_user(customer.firstname, customer.lastname, customer.email)
 
-
-
             if Customer.objects.filter(email=request.POST['email']).exists() and id == 0:
                 messages.error(request, 'That email address already exists in our system.<br>Every account requires a unique email address.')
             elif customer._state.adding:
                 customer.save()
-                user = add_user(customer.firstname, customer.lastname, customer.email)
 
-                manager = request.user             ## To get the manager related to this transaction.
+                password = random_password_generator.random_password(12)
+                manager = request.user                                  ## To get the manager related to this transaction.
+
+                user = add_user(customer.firstname, customer.lastname, customer.email, password)
                 add_customer_to_user_connection(user, customer, manager)
+                send_welcome_email(customer, password)
 
                 messages.success(request, 'User information was successfully updated.')
             else:
@@ -84,6 +85,16 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
             return True                     ## True if the form is saved.
         else:
             return False                    ## False if form is not saved. This could just be because it wasn't a POST
+
+
+def send_welcome_email(customer, password):
+
+    context = {'customer': customer,
+               'password': password}
+
+    sendemail_with_template(customer.email, context)
+
+    return True
 
 
 def generate_customer_form(customer: Customer):
@@ -107,16 +118,15 @@ def list_customers(request):
     related_customers = UsersToCustomerRelationship.objects.filter(manager=1).select_related('customer')
     customers = [item.customer for item in related_customers]
 
-
     context = { 'customers': customers }
 
     return HttpResponse(template.render(context, request))
 
-def add_user(firstname: str, lastname: str, email: str) -> User:
+def add_user(firstname: str, lastname: str, email: str, password: str) -> User:
     """Adds a new user when needed.
         Also updates the user/customer relationship."""
 
-    password = random_password_generator.random_password(12)
+    # password = random_password_generator.random_password(12)
 
     user = User.objects.create_user(username=email, first_name=firstname, last_name=lastname, password=password)
     user.save()
