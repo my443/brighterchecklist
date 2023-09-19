@@ -12,13 +12,13 @@ from .forms import CustomerForm
 from .email import sendemail_with_template
 import shared.random_password_generator as random_password_generator
 
-def edit_customer(request, id: int) -> HttpResponse:
+def edit_customer(request, id: int) :
     """For when a Checklist Manager adds a customer"""
 
     template = loader.get_template('customers/customer_details_in_app.html')
 
     customer = get_customer_details(request, id)
-    save_customer_details(request, id, customer)
+    customer = save_customer_details(request, id, customer)
 
     form = generate_customer_form(customer)
 
@@ -81,12 +81,10 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
                 customer.save()
                 messages.success(request, 'User information was successfully updated.')
 
-
-            return True                     ## True if the form is saved.
-        else:
-            return False                    ## False if form is not saved. This could just be because it wasn't a POST
+    return customer
 
 
+## TODO - figure out why the email is not sending.
 def send_welcome_email(customer, password):
 
     context = {'customer': customer,

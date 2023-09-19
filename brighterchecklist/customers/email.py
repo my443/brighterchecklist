@@ -30,6 +30,8 @@ def sendmail_by_class():
     email.send()
 
 def sendemail_with_template(email_to, context):
+
+
     ## Here is a link to how you can send messages from a template: https://stackoverflow.com/questions/3005080/how-to-send-html-email-with-django-with-dynamic-content-in-it
     email = EmailMultiAlternatives()
     email.from_email = 'admin@brighterchecklist.com'
