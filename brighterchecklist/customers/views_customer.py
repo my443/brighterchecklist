@@ -20,13 +20,18 @@ def edit_customer(request, id: int) :
     customer = get_customer_details(request, id)
     customer = save_customer_details(request, id, customer)
 
-    form = generate_customer_form(customer)
-
     days_until_expiry = get_days_until_expiry(customer.account_expiry_date)
+
+    form = generate_customer_form(customer)
 
     context = {'customer': customer,
                'form': form,
                'days_until_expiry': days_until_expiry}
+
+    """If you have a new customer, after the initial page is saved,
+        you want to be redirected to the customer's page."""
+    if customer.id != None and id == 0:
+        return redirect('edit_customer', customer.id)
 
     return HttpResponse(template.render(context, request))
 
