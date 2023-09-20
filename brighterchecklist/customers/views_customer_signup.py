@@ -1,10 +1,12 @@
 import datetime
 
-from .models import Customer
+from django.contrib.auth.models import User
+from .models import Customer, UsersToCustomerRelationship
 from .forms import CustomerSignupForm
 from .email import sendemail_with_template
 from django.template import loader
 from django.http import HttpResponse
+import shared.random_password_generator as random_password_generator
 
 
 def new_customer_signup(request) -> HttpResponse:
@@ -40,8 +42,10 @@ def save_customer_sign_up(request):
     customer.firstname = request.POST['firstname']
     customer.lastname = request.POST['lastname']
     customer.last_updated = datetime.datetime.now()
-
     customer.save()
+
+    user = create_new_user_for_new_customers(customer.email)
+    add_new_customer_to_user_connection(user, customer)
 
     send_email_after_save(customer)
 
@@ -63,4 +67,30 @@ def thankyou(request):
 def something_to_test():
     return 'hello world'
 
+def create_new_user_for_new_customers(email):
+    """Adds a new user when needed.
+        Also updates the user/customer relationship."""
 
+    password = random_password_generator.random_password(12)
+
+    user = User.objects.create_user(username=email, password=password)
+    user.save()
+
+    user.password = password
+
+    return user
+
+def add_new_customer_to_user_connection(user: User, customer: Customer) -> bool:
+    """Used for NEW customers."""
+
+    manager = User.objects.get(pk=1)
+    relationship = UsersToCustomerRelationship()
+
+    relationship.user = user
+    relationship.customer = customer
+    relationship.manager = user
+    relationship.is_active = True
+
+    relationship.save()
+
+    return True
