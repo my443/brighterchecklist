@@ -57,13 +57,9 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
             customer.email = form.cleaned_data['email']
             customer.company_name = form.cleaned_data['company_name']
 
-            ## TODO - Start here.
             ## Add that if the email doesn't exist, add the customer.
             ## Then add the relationship
             ## Otherwise you just save the customer.
-
-            # if customer._state.adding:
-            #     add_user(customer.firstname, customer.lastname, customer.email)
 
             if Customer.objects.filter(email=request.POST['email']).exists() and id == 0:
                 messages.error(request, 'That email address already exists in our system.<br>Every account requires a unique email address.')
