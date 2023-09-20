@@ -1,7 +1,7 @@
 import datetime
 
-from django.shortcuts import render, redirect
-from django.db.models import DEFERRED                   ## Used to get the _state of a transaction
+
+from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.template import loader
 from django.http import HttpResponse
@@ -11,6 +11,7 @@ from .models import Customer, UsersToCustomerRelationship
 from .forms import CustomerForm
 from .email import sendemail_with_template
 import shared.random_password_generator as random_password_generator
+from .views_customer_helpers import get_days_until_expiry
 
 def edit_customer(request, id: int) :
     """For when a Checklist Manager adds a customer"""
@@ -43,11 +44,6 @@ def get_customer_details(request, id: int) -> Customer:
         customer = Customer.objects.get(id=id)
 
     return customer
-
-def get_days_until_expiry(expiry_date: datetime) -> int:
-    days_until_expiry = (expiry_date - datetime.date.today()).days
-
-    return days_until_expiry
 
 def save_customer_details(request, id: int, customer: Customer) -> bool:
     if request.method == "POST":
@@ -88,8 +84,6 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
 
     return customer
 
-
-## TODO - figure out why the email is not sending.
 def send_welcome_email(customer, password):
 
     context = {'customer': customer,
@@ -98,7 +92,6 @@ def send_welcome_email(customer, password):
     sendemail_with_template(customer.email, context)
 
     return True
-
 
 def generate_customer_form(customer: Customer):
     data = {
