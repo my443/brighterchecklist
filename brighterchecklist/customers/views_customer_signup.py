@@ -47,12 +47,13 @@ def save_customer_sign_up(request):
     user = create_new_user_for_new_customers(customer.email)
     add_new_customer_to_user_connection(user, customer)
 
-    send_email_after_save(customer)
+    send_email_after_save(customer, user.password)
 
     return thankyou(request)
 
-def send_email_after_save(customer):
-    context = { 'customer': customer }
+def send_email_after_save(customer, password):
+    context = { 'customer': customer,
+                'password': password}
     sendemail_with_template(customer.email, context)
 
     return 0
