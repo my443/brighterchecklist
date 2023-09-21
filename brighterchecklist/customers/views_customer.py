@@ -14,8 +14,8 @@ import shared.random_password_generator as random_password_generator
 from .views_customer_helpers import get_days_until_expiry
 import urllib.parse
 
-## STRIPE_URL = ''          ## Live
-STRIPE_URL = 'https://buy.stripe.com/test_14k7wo7uRe6U9X2eUU'             ## Dev
+## STRIPE_URL = 'https://buy.stripe.com/fZe4iq03Y7NT0FOaEE'                 ## Live
+STRIPE_URL = 'https://buy.stripe.com/test_14k7wo7uRe6U9X2eUU'               ## Dev
 
 def edit_customer(request, id: int) :
     """For when a Checklist Manager adds a customer"""
