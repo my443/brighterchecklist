@@ -12,6 +12,10 @@ from .forms import CustomerForm
 from .email import sendemail_with_template
 import shared.random_password_generator as random_password_generator
 from .views_customer_helpers import get_days_until_expiry
+import urllib.parse
+
+## STRIPE_URL = ''          ## Live
+STRIPE_URL = 'https://buy.stripe.com/test_14k7wo7uRe6U9X2eUU'             ## Dev
 
 def edit_customer(request, id: int) :
     """For when a Checklist Manager adds a customer"""
@@ -27,7 +31,9 @@ def edit_customer(request, id: int) :
 
     context = {'customer': customer,
                'form': form,
-               'days_until_expiry': days_until_expiry}
+               'days_until_expiry': days_until_expiry,
+               'stripe_url': STRIPE_URL,
+               'url_email': urllib.parse.quote(customer.email)}
 
     """If you have a new customer, after the initial page is saved,
         you want to be redirected to the customer's page."""

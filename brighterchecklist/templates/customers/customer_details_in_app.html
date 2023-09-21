@@ -64,7 +64,8 @@
             <tr>
                 <th scope="row">8</th>
                 <td>Payment Action</td>
-                <td><a href="https://buy.stripe.com/fZe4iq03Y7NT0FOaEE" class="btn-success">Pay Annual Subscription</a>
+                <td><a href="{{ stripe_url }}?client_reference_id={{ customer.customer_uuid }}&prefilled_email={{ url_email }}" class="btn-success">Pay Annual Subscription</a>
+                <br><i>When payment is complete, click the back button to return to this page. </i>
                 </td>
             </tr>
             </tbody>
