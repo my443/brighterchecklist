@@ -10,6 +10,7 @@ from .views_customer_helpers import get_days_until_expiry
 def profile(request):
     ##TODO - [Future Refactor] The user profile should be aligned with the customer profile. (So that they are updating the same thing.)
     ##TODO - [Future Refactor] When someone updates their Customer name, it should update their user profile also.
+
     template = loader.get_template('customers/customer_self_profile.html')
     user = request.user
 
