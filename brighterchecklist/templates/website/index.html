@@ -35,6 +35,15 @@
         <!-- Masthead-->
         <header class="masthead">
             <div class="container position-relative">
+                <div class="row">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <span class="border {% if message.tags == 'error' %}border-danger text-danger
+                                                    {% else %}border-success  text-success{% endif %}" style="background-color: white;">{{ message|safe }}</span>
+
+                        {% endfor %}
+                    {% endif %}
+                </div>
                 <div class="row ">
                     <div class="col-xl-6 justify-content-start"></div>
                     <div class="col-xl-6 justify-content-end">
