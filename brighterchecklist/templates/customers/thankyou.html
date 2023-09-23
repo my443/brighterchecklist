@@ -1,49 +1,16 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>BrighterChecklist - Thank You!</title>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
-</head>
-<body>
-
-<div class="container">
-  <nav class="navbar navbar-light bg-light sticky-top">
-    <div class="container">
-      <a class="navbar-brand" href="/">BrighterChecklist</a>
-      <div>
-
-      </div>
-    </div>
-    <div class="container">
-      <div>
-        <i><small>Repeating checklists for consistent performance.</small></i>
-      </div>
-    </div>
-  </nav>
+{% extends "website/base_index.html" %}
 
   <div class="container-fluid" style="margin-top:200px">
     <h1>Thanks for signing up {{ firstname }} {{ lastname }}!</h1>
 
-    <p>You should hear from us within 24 hours with more details about your account.</p>
+    <p>Your free trial has been activated. You have 14 days of full access to the app.</p>
+    <p>You will receive an email with your password and login details. If the email isn't in your inbox in 5 minutes, check your spam folder.</p>
+      <p>By using this app, you are accepting the terms of service.</p>
     <p>If you have questions or feedback, please email brighterchecklist@johnv.ca</p>
     <p>Thank you for being the type of person who values repeating checklists for consistent performance.</p>
     <p><b>John</b></p>
 
     <a href="/">Return to the BrighterChecklist main page</a>
+    <a href="/manager/">Login to BrighterChecklist</a>
 
-  </div>
-</div>
-</body>
-</html>
+{% endblock %}
