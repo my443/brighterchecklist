@@ -3,8 +3,8 @@ from . import views_customer_signup, views_change_password, views_customer, view
 
 urlpatterns = [
     path('new/', views_customer_signup.new_customer_signup, name='new_customer'),
-    path('save/', views_customer_signup.save_customer_sign_up, name='save_customer'),
-    path('thankyou/', views_customer_signup.thankyou, name='thank_you'),
+    # path('save/', views_customer_signup.save_customer_sign_up, name='save_customer'),
+    # path('thankyou/', views_customer_signup.thankyou, name='thank_you'),
 
     path('password/', views_change_password.change_password, name='change_password'),
 
