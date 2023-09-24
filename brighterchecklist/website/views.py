@@ -13,5 +13,18 @@ def home(request):
     # return render(request, template)
     return HttpResponse(template.render(context, request))
 
-def sign_up_user(request):
-    pass
+def privacy_policy(request):
+    template = loader.get_template('website/privacy_policy.html')
+
+    context = {}
+
+    # return render(request, template)
+    return HttpResponse(template.render(context, request))
+
+def terms_of_use(request):
+    template = loader.get_template('website/terms_of_use.html')
+
+    context = {}
+
+    # return render(request, template)
+    return HttpResponse(template.render(context, request))
