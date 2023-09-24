@@ -72,7 +72,7 @@ def save_customer_details(request, id: int, customer: Customer) -> bool:
             elif customer._state.adding:
                 customer.save()
 
-                password = random_password_generator.random_password(12)
+                password = random_password_generator.random_password(15)
                 manager = request.user                                  ## To get the manager related to this transaction.
 
                 user = add_user(customer.firstname, customer.lastname, customer.email, password)

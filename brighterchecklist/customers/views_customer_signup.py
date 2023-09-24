@@ -13,7 +13,7 @@ def new_customer_signup(request):
     if customer_already_exists(request):
         return redirect('home')
 
-    password = random_password_generator.random_password(12)
+    password = random_password_generator.random_password(15)
 
     customer = create_new_customer(request.POST['emailAddress'])
 
