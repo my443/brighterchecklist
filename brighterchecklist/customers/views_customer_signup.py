@@ -9,20 +9,32 @@ from django.http import HttpResponse
 import shared.random_password_generator as random_password_generator
 from django.shortcuts import redirect
 from django.contrib import messages
+from .views_customer import add_user, add_customer_to_user_connection, send_welcome_email
 
 
 def new_customer_signup(request) -> HttpResponse:
-    template = loader.get_template('customers/customer_details.html')
+    # template = loader.get_template('customers/customer_details.html')
 
     if customer_already_exists(request):
         return redirect('home')
 
-    new_customer = create_new_customer(request.POST['emailAddress'])
-    form = generate_new_customer_form(new_customer)
+    password = random_password_generator.random_password(12)
 
-    context = {'form': form}
+    customer = create_new_customer(request.POST['emailAddress'])
+    user = add_user("<No Firstname Given>", "<No Lastname Given>", customer.email, password)
+    manager = user                                                  ## For your first sign-up, the user is the manager.
+    add_customer_to_user_connection(user, customer, manager)
+    send_welcome_email(customer, password)
 
-    return HttpResponse(template.render(context, request))
+    messages.success(request, """<h3>You are all set!</h3>
+                                        Check your email for your username and password.
+                                        <br>You have full access to all of BrighterChecklist for 15 days! 
+                                        <b><i>For Free.</i></b>""")
+    # form = generate_new_customer_form(new_customer)
+    #
+    # context = {'form': form}
+    return redirect('home')
+    # return HttpResponse(template.render(context, request))
 
 def create_new_customer(email_address: str) -> Customer:
     new_customer = Customer()
