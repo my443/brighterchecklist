@@ -71,11 +71,11 @@
       </div>
       <div class="modal-body">
 
-          <form action="" method="post">
+          <form action="{% url 'submit_feedback' %}" method="post" id="feedback_form">
               {% csrf_token %}
               <div class="form-group">
                   <label for="exampleFormControlTextarea1"></label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  <textarea class="form-control"  name="feedback_text" rows="3"></textarea>
               </div>
               <p>
                   <button class="btn btn-info" type="submit">Submit Feedback</button>

@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('privacy/', views.privacy_policy, name='privacy_policy'),
     path('terms/', views.terms_of_use, name='terms_of_use'),
+    path('feedback/', views.submit_feedback, name='submit_feedback'),
 ]
