@@ -59,6 +59,37 @@
   </div>
 </div>
 
+<!-- Feedback Modal -->
+<div class="modal fade" id="feedbackOrQuestions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Submit your feedback or questions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form action="" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="exampleFormControlTextarea1"></label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <p>
+                  <button class="btn btn-info" type="submit">Submit Feedback</button>
+              </p>
+              <p class="text-center">Give us ideas about how we can improve BrighterChecklist, or any questions that you have.<br>We'll respond as quickly as possible.</p>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <body id="page-top">
     <div id="wrapper">
         <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
@@ -124,7 +155,17 @@
 <!--                                </li>-->
 
 <!--                            </ul>-->
+
+                            <li class="nav-item ">
+                                <div class="dropdown nav-link">
+                                    <a class="btn" style="border-color: orange;color: orange" data-toggle="modal" data-target="#feedbackOrQuestions"
+                                       href="reports.html"><i class="fa fa-sticky-note" aria-hidden="true"></i>
+                                        <span>Feedback/ Questions</span></a>
+                                </div>
+                            </li>
+
                         </div>
+
                         <div>
                             {% if user.manager.customer.account_expiry_date|timeuntil < "2 weeks" %}
                                 <span style="color: darkred">
@@ -136,6 +177,7 @@
                         <!--<form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                         </form>-->
+
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
                                 <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
@@ -183,7 +225,10 @@
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/script.min.js' %}"></script>
-
+    <script>
+        // To populate the editor.
+        $('textarea').trumbowyg()
+    </script>
 </body>
 
 </html>
