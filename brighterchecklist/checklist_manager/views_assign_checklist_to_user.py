@@ -3,18 +3,20 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import SourceChecklist, ChecklistTemplateItems
+from customers.models import UsersToCustomerRelationship
 from checklist.models import Checklist, ChecklistHeader
 import enumerations
 from shared.security_check import check_security
 
 import datetime
 
-def all_users_for_assignment(request, checklist_id):
-    ## SECURITY: We can filter by **all** of the users a person is allwed to see.
-    all_users = User.objects.all().filter(id=request.user.id)
+def all_users_for_assignment(request, checklist_id, all_users):
+    ## SECURITY: We can filter by **all** of the users a person is allowed to see.
+    ## TODO: This needs to be updated when there are checklist completers. Needs to include the relationship of users for that manager.
+    # all_users = User.objects.all().filter(id=request.user.id)
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
 
-    template = loader.get_template('manager/assign_checklist_to_person.html')
+    # template = loader.get_template('manager/assign_checklist_to_person.html')
 
     ## TODO - Add the analytics for the specific checklist that has been assigned.
     ##          Based on checklist_id
@@ -26,7 +28,13 @@ def all_users_for_assignment(request, checklist_id):
         # 'checklist_analytics': checklist_analytics,
     }
 
-    return HttpResponse(template.render(context))
+    return context
+    # return HttpResponse(template.render(context))
+
+def assign_checklist_from_list(request, checklist_id, user_id):
+    assign_checklist_to_person(request, checklist_id, user_id)
+
+    return redirect(f'/manager/users/{checklist_id}')
 
 def assign_checklist_to_person(request, checklist_id, user_id):
     checklist_info = SourceChecklist.objects.get(id=checklist_id)
@@ -51,9 +59,26 @@ def assign_checklist_to_person(request, checklist_id, user_id):
             # checklist_item.checklist_item_long_text_text = item.template_item_long_text
             checklist_item.checklist_item_users_notes = item.template_item_long_text
 
-            print (item.template_item_long_text)
+            # print (item.template_item_long_text)
 
             checklist_item.save()
 
-    return redirect(f'/manager/users/{checklist_id}')
+    return checklist_header.id
 
+    # return redirect(f'/manager/users/{checklist_id}')
+
+def assign_checklist_or_list_completers(request, checklist_id):
+    """If a manager only has one completer, automatcially assign the checklist.
+    Otherwise, show the list of checklists to be asigned."""
+
+    template = loader.get_template('manager/assign_checklist_to_person.html')
+
+    all_users = UsersToCustomerRelationship.objects.all().filter(manager=request.user)
+
+    if all_users.count() > 1:
+        context = all_users_for_assignment(request, checklist_id, all_users)
+        return HttpResponse(template.render(context))
+        # return redirect(f'/manager/users/{checklist_id}')
+    else:
+        assigned_checklist_id = assign_checklist_to_person(request, checklist_id, request.user.id)
+        return redirect(f'/checklist/{assigned_checklist_id}')

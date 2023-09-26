@@ -36,8 +36,8 @@
                 {% for row in all_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ row.first_name }} {{ row.last_name }}</td>
-                        <td>{{ row.username }}</td>
+                        <td>{{ row.customer.firstname }} {{ row.customer.lastname }}</td>
+                        <td>{{ row.user}}</td>
                         <td class="text-center"> - </td>
                         <td class="text-center"> - </td>
                         <td class="text-center"> - </td>
