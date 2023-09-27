@@ -8,6 +8,7 @@ from checklist.models import Checklist, ChecklistHeader
 import enumerations
 from shared.security_check import check_security
 
+
 import datetime
 
 def all_users_for_assignment(request, checklist_id, all_users):
