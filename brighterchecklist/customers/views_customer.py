@@ -45,6 +45,7 @@ def edit_customer(request, id: int) :
 def get_customer_details(request, id: int) -> Customer:
     if id == 0:
         customer = Customer()
+        customer.email = ''
         customer.account_expiry_date = datetime.date.today() + datetime.timedelta(days=15)
     else:
         customer = Customer.objects.get(id=id)
@@ -113,7 +114,12 @@ def list_customers(request):
     template = loader.get_template('customers/customer_list.html')
     # customers = Customer.objects.all().order_by('id')
 
-    related_customers = UsersToCustomerRelationship.objects.filter(manager=1).select_related('customer')
+    ## TODO - Document this way that superusers can see all of the users in the database.
+    if request.user.is_superuser == True and request.GET.get('display') == 'all':
+        related_customers = UsersToCustomerRelationship.objects.select_related('customer')
+    else:
+        related_customers = UsersToCustomerRelationship.objects.filter(manager=request.user.id).select_related('customer')
+
     customers = [item.customer for item in related_customers]
 
     context = { 'customers': customers }
