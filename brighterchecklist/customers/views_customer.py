@@ -1,6 +1,5 @@
 import datetime
 
-
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.template import loader

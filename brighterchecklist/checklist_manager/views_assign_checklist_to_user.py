@@ -7,6 +7,7 @@ from customers.models import UsersToCustomerRelationship
 from checklist.models import Checklist, ChecklistHeader
 import enumerations
 from shared.security_check import check_security
+from django.utils import timezone
 
 
 import datetime
@@ -48,7 +49,7 @@ def assign_checklist_to_person(request, checklist_id, user_id):
         checklist_header.source_checklist = checklist_info
         checklist_header.checklist_notes = checklist_info.checklist_details
         checklist_header.assigned_to_user_id = user_id
-        checklist_header.checklist_startdate = datetime.datetime.now()
+        checklist_header.checklist_startdate = timezone.now()
         checklist_header.checklist_custom_title = '<Assigned '+datetime.datetime.now().strftime("%Y-%m-%d")+'> ' + checklist_info.checklist_name
         checklist_header.save()
 
