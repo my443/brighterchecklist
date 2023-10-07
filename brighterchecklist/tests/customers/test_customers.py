@@ -5,6 +5,7 @@ from customers.models import Customer
 from django import forms
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.test.client import RequestFactory
+from django.urls import reverse
 
 class TestCustomers(TestCase):
     def setUp(self) -> None:
@@ -33,6 +34,7 @@ class TestCustomers(TestCase):
         #
         self.new_customer = Customer()
         self.new_customer.email = 'test@test_email.com'
+        self.new_customer.save()
 
     ## A couple of sample tests to make sure testing is working ok.
     def test_this_will_pass(self):
@@ -60,4 +62,29 @@ class TestCustomers(TestCase):
 
         response = self.client.post('/customer/new/', data)
         self.assertEqual(response.status_code, 302)
+
+    def test_customer_signup_success(self):
+        # Simulate a POST request with valid data
+        response = self.client.post(reverse('new_customer'), {'emailAddress': 'test@example.com'})
+
+        # Check that the response redirects to 'home'
+        self.assertRedirects(response, reverse('home'))
+
+    def test_customer_is_added(self):
+        # # Check that a new customer and user are created
+        for customer in Customer.objects.all():
+            print (customer.email)
+        self.assertEqual(Customer.objects.count(), 1)
+
+    def test_user_is_added(self):
+        self.assertEqual(User.objects.count(), 1)
+
+    # def test_that_you_cant_duplicate_customer_email(self):
+    #     factory = RequestFactory()
+    #     data = {'message': 'A test message', 'emailAddress': 'test@test.org'}
+    #     self.request = factory.post('/edit/1', data)
+    #
+    #     setattr(self.request , 'session', 'session')
+    #     messages = FallbackStorage(self.request)
+    #     setattr(self.request , '_messages', messages)
 
